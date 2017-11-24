@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blake Boswell - Managing Parallel Operations with Pandas Groupby</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Blake Boswell" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/assets/js/min/particle.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/plotly-basic.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="/assets/js/min/d3.v3.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen|Raleway|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+
+</head>
+
+    
+    <body>
+            
+        <div class="sidebar">
+  <div id="particles"></div>
+    <div class="container">
+        <nav class="sidebar-nav">
+
+            <img class="sidebar-avatar" src="/assets/images/avatar.jpg"/>
+
+            <ul>
+                <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Articles </a></li>
+                <!-- <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Projects </a></li> -->
+                <li><a href="https://blakeboswell.github.iofeed.xml"
+                    style="font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;">
+                    RSS
+                    </a>
+                </li>
+            </ul>
+
+            <div style="text-align: center">
+                <br>
+                <a class="socialicon" href="https://twitter.com/lakebozbay"><i class="fa fa-twitter fa-2x"></i></a>
+                <a class="socialicon" href="https://github.com/blakeboswell"><i class="fa fa-github fa-2x"></i></a>
+                <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell"><i class="fa fa-linkedin fa-2x"></i></a>
+            </div>
+        </nav>
+    </div>
+  </div>
+</div>
+<script>
+particlesJS("particles", {
+    "particles": {
+        "number": {
+        "value": 80,
+        "density": {
+            "enable": true,
+            "value_area": 400
+        }
+        },
+        "color": {
+        "value": "#2AA198"
+        },
+        "shape": {
+        "type": "circle",
+        "stroke": {
+            "width": 0,
+            "color": "#000000"
+        },
+        "polygon": {
+            "nb_sides": 5
+        }
+        },
+        "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+        }
+        },
+        "size": {
+        "value": 10,
+        "random": true,
+        "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+        }
+        },
+        "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+        },
+        "move": {
+        "enable": true,
+        "speed": 0.25,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+        }
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+        "onhover": {
+            "enable": false,
+            "mode": "grab"
+        },
+        "onclick": {
+            "enable": true,
+            "mode": "push"
+        },
+        "resize": true
+        },
+        "modes": {
+        "grab": {
+            "distance": 140,
+            "line_linked": {
+            "opacity": 1
+            }
+        },
+        "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+        },
+        "repulse": {
+            "distance": 200,
+            "duration": 0.4
+        },
+        "push": {
+            "particles_nb": 4
+        },
+        "remove": {
+            "particles_nb": 2
+        }
+        }
+    },
+    "retina_detect": true
+    });
+</script>
+        
+
+        <div class="content container">
+
+            <!-- <section id="wrapper" class=""> -->
+            <article class="post">
+    <div class="post-header" id=header>
+        <h1 class="title">Managing Parallel Operations with Pandas Groupby</h1>
+        <h2 class="headline">September 30, 2016</h2>
+    </div>
+    <section id="post-body">
+        <p>Python&#39;s <code class="inline-code">Pool</code> method from the <a href="https://docs.python.org/2/library/multiprocessing.html"><code class="inline-code">multiprocessing</code> library</a> is an extremely useful tool for speeding up Python jobs.</p>
+
+<p>However, the use of multiple processes can introduces design challenges requiring additional time in the development stage. In some cases time spent addressing parallel design challenges can negate any time gains from parallel performance.</p>
+
+<p>Below, I discuss an easy to employ pattern for parallelizing tasks that provides performance benefits while minimizing design challenges.</p>
+
+<h1>Parallel Group-By</h1>
+
+<p>The pattern involves structuring the information needed for the parallelized method as rows in a <a href="http://pandas.pydata.org"><code class="inline-code">pandas</code></a> dataframe and then using the <code class="inline-code">group-by-apply</code> pattern to send groups of rows to processes.</p>
+
+<p>Using the below, we map an arbitrary function, <code class="inline-code">fxn</code>, to each group in a dataframe in parallel.  If the number of groups is less than the maximum number of allowable cores, then each core handles a single group,  otherwise cores handle multiple groups. The return value is a <code class="inline-code">pandas</code> dataframe or series depending on the return value of <code class="inline-code">fxn</code>.</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<a name="line-2"></a><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<a name="line-3"></a>
+<a name="line-4"></a><span class="k">def</span> <span class="nf">papply</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">fxn</span><span class="p">,</span> <span class="n">pmax</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+<a name="line-5"></a>    <span class="sd">&#39;&#39;&#39; apply one process to each df group in groups</span>
+<a name="line-6"></a><span class="sd">    &#39;&#39;&#39;</span>
+<a name="line-7"></a>    <span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">),</span> <span class="n">pmax</span><span class="p">)</span>
+<a name="line-8"></a>    <span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+<a name="line-9"></a>        <span class="n">result</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">fxn</span><span class="p">,</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">])</span>
+<a name="line-10"></a>    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+<p>Because we are mapping <code class="inline-code">fxn</code> over a <code class="inline-code">pandas</code> group by object, the input is a <code class="inline-code">pandas</code> dataframe on which we can operate in the usual way.  The example below defines a function and then applies that function allong the dataframe rows. </p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="k">def</span> <span class="nf">fxn_by_group</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<a name="line-2"></a>    <span class="sd">&#39;&#39;&#39; apply fxn to each row in group</span>
+<a name="line-3"></a><span class="sd">    &#39;&#39;&#39;</span>
+<a name="line-4"></a>    <span class="k">def</span> <span class="nf">fxn_by_row</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+<a name="line-5"></a>        <span class="k">try</span><span class="p">:</span>
+<a name="line-6"></a>            <span class="c"># do stuff</span>
+<a name="line-7"></a>            <span class="k">return</span> <span class="s">&#39;SUCCESS LOG&#39;</span>
+<a name="line-8"></a>        <span class="k">except</span><span class="p">:</span>
+<a name="line-9"></a>            <span class="k">return</span> <span class="s">&#39;FAIL LOG&#39;</span>
+<a name="line-10"></a>
+<a name="line-11"></a>    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">fxn_by_row</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>The above approach allows precise control over what information and resources each process has available via the content of each row and the <code class="inline-code">group_key</code>.</p>
+
+<p>When calling the method we can write the results back to the original dataframe.  This provides a record of the function input and a log of the output in one structure that is readily explored.</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">df</span><span class="p">[</span><span class="s">&#39;LOG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">papply</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">&#39;group_key&#39;</span><span class="p">),</span> <span class="n">fxn_by_group</span><span class="p">)</span>
+</code></pre></div>
+<h1>Practical Example</h1>
+
+<p>Recently I was provided thousands of comma delimited files having variable number of observations and columns that needed to be transformed, grouped by columns, and then stacked into a single file per column group.</p>
+
+<h2>Loading the DataFrame</h2>
+
+<p>Which files are stacked together can be determined by their head row.  So a loop over the files to perform the relatively inexpensive operation of reading the header is required.  I have a handy snippet that returns a generator over a file directory:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">import</span> <span class="nn">os</span>
+<a name="line-2"></a><span class="k">def</span> <span class="nf">diriter</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">extension</span><span class="p">):</span>
+<a name="line-3"></a>    <span class="sd">&#39;&#39;&#39; grab files from root/sub dirs having extension</span>
+<a name="line-4"></a><span class="sd">    &#39;&#39;&#39;</span>
+<a name="line-5"></a>    <span class="k">return</span> <span class="p">((</span><span class="n">f</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+<a name="line-6"></a>            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span>
+<a name="line-7"></a>            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">extension</span><span class="p">))</span>
+</code></pre></div>
+<p>Which allows for easy creation of a DataFrame containing the file names and paths:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
+<a name="line-2"></a>                <span class="p">[</span><span class="n">tup</span> <span class="k">for</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">diriter</span><span class="p">(</span><span class="err">$</span><span class="n">ROOT</span><span class="p">,</span> <span class="s">&#39;.csv&#39;</span><span class="p">)],</span>
+<a name="line-3"></a>                <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="s">&#39;filepath&#39;</span><span class="p">]</span>
+<a name="line-4"></a>      <span class="p">)</span>
+</code></pre></div>
+<p>Then each <code class="inline-code">filename</code>&#39;s head row can be added to its corresponding dataframe row by reading the first line in each file.  Since I&#39;m using <code class="inline-code">pandas</code> and dealing with <code class="inline-code">csv</code> files, I&#39;ll use the <code class="inline-code">read_csv</code> method as follows:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="k">def</span> <span class="nf">determine_header</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+<a name="line-2"></a>    <span class="sd">&#39;&#39;&#39; apply fxn that returns head row of file joined by comma</span>
+<a name="line-3"></a><span class="sd">    &#39;&#39;&#39;</span>
+<a name="line-4"></a>    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a name="line-5"></a>    <span class="k">return</span> <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<a name="line-6"></a>
+<a name="line-7"></a><span class="n">df</span><span class="p">[</span><span class="s">&#39;stack&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">filepath</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">determine_header</span><span class="p">)</span>
+</code></pre></div>
+<h2>Group by Apply</h2>
+
+<p>The <code class="inline-code">fxn_by_group</code> which reads in each file in a group, performs the transformation, and then appends the results to an output file is defined as follows:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="k">def</span> <span class="nf">append_by_group</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<a name="line-2"></a>
+<a name="line-3"></a>    <span class="c"># group&#39;s append file name as function of the group</span>
+<a name="line-4"></a>    <span class="n">group_file_name</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">-append-file.csv&#39;</span> <span class="o">%</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a name="line-5"></a>
+<a name="line-6"></a>    <span class="k">def</span> <span class="nf">io_by_row</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+<a name="line-7"></a>        <span class="k">try</span><span class="p">:</span>
+<a name="line-8"></a>            <span class="n">file_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+<a name="line-9"></a>            <span class="c"># do transformation</span>
+<a name="line-10"></a>            <span class="n">file_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">group_file_name</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<a name="line-11"></a>            <span class="k">return</span> <span class="s">&#39;SUCCESS&#39;</span>
+<a name="line-12"></a>        <span class="k">except</span><span class="p">:</span>
+<a name="line-13"></a>            <span class="k">return</span> <span class="s">&#39;FAIL&#39;</span>
+<a name="line-14"></a>
+<a name="line-15"></a>    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">io_by_row</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>Finally, the statement calling the parallel operation by group:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">df</span><span class="p">[</span><span class="s">&#39;STACK_LOG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">papply</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">&#39;stack&#39;</span><span class="p">),</span> <span class="n">append_by_group</span><span class="p">)</span>
+</code></pre></div>
+<p>In this instance, no design considerations were needed to prevent simultaneous writes to the output files or to log the success or failure of each file io operation.  Employing this method required little effort and drastically reduced the time to process the files.</p>
+
+<h2>Distributing Evenly</h2>
+
+<p>In the above example the method for grouping the data is built into the problem. Files are grouped by their header, and each file group is written to its own output file. However, you may need to partition the dataframe into equal parts without an existing variable to group. If that&#39;s the case, you can generate your own variable:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">nproc</span> <span class="o">=</span> <span class="mi">8</span>
+<a name="line-2"></a><span class="n">nrows</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a name="line-3"></a><span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nproc</span><span class="p">))</span> <span class="o">*</span> <span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="n">nrows</span> <span class="o">//</span> <span class="n">nproc</span><span class="p">))</span>
+<a name="line-4"></a>        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nrows</span><span class="p">]</span>
+<a name="line-5"></a><span class="n">df</span><span class="p">[</span><span class="s">&#39;group_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">keys</span>
+</code></pre></div>
+<p>The above example doesn&#39;t require an additional <code class="inline-code">import</code>, but isn&#39;t very clear.  A more literate solution using <a href="https://docs.scipy.org/doc/numpy/reference/"><code class="inline-code">numpy</code></a> is as follows:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<a name="line-2"></a><span class="n">nproc</span> <span class="o">=</span> <span class="mi">8</span>
+<a name="line-3"></a><span class="n">nrows</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a name="line-4"></a><span class="n">df</span><span class="p">[</span><span class="s">&#39;group_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">nproc</span><span class="p">,</span> <span class="n">nrows</span><span class="p">)</span>
+</code></pre></div>
+<p>Both the above examples will ensure that each process will get an approximately equal portion of the dataframe.</p>
+
+<h2>Trade-Offs</h2>
+
+<p>By controlling the workload provided to each process, its likely that some efficiency is being sacrificed.  However, there are many instances where the convenience of this method outweighs the loss in efficiency.  After gaining familiarity with the above pattern I find myself employing parallel jobs much more frequently and in situations where I previously would not have forgone the additional effort.</p>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+
+    <a href="https://twitter.com/lakebozbay">
+        <img class="avatar" src="/assets/images/avatar.jpg">
+        <div>
+            <span class="dark">Blake Boswell</span>
+            <span>Data Scientist | Developer</span>
+        </div>
+    </a>
+
+    <div style="float: right;">
+        <a class="socialicon" href="https://twitter.com/lakebozbay">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://github.com/blakeboswell">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </div>
+
+</footer>
+
+<!-- Disqus comments -->
+
+
+
+
+
+
+            <!-- </section> -->
+
+            <script src="/assets/js/main.js"></script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                TeX: { equationNumbers: { autoNumber: "AMS" } },
+                styles: {".MathJax": { color: "#666" } }
+                });
+            </script>
+
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-76539402-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+        </div>
+
+    </body>
+
+</html>
+
+
+

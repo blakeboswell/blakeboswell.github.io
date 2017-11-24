@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blake Boswell - Crawling with Scrapy - Scraping TED Talk Transcripts</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Blake Boswell" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/assets/js/min/particle.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/plotly-basic.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="/assets/js/min/d3.v3.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen|Raleway|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+
+</head>
+
+    
+    <body>
+            
+        <div class="sidebar">
+  <div id="particles"></div>
+    <div class="container">
+        <nav class="sidebar-nav">
+
+            <img class="sidebar-avatar" src="/assets/images/avatar.jpg"/>
+
+            <ul>
+                <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Articles </a></li>
+                <!-- <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Projects </a></li> -->
+                <li><a href="https://blakeboswell.github.iofeed.xml"
+                    style="font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;">
+                    RSS
+                    </a>
+                </li>
+            </ul>
+
+            <div style="text-align: center">
+                <br>
+                <a class="socialicon" href="https://twitter.com/lakebozbay"><i class="fa fa-twitter fa-2x"></i></a>
+                <a class="socialicon" href="https://github.com/blakeboswell"><i class="fa fa-github fa-2x"></i></a>
+                <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell"><i class="fa fa-linkedin fa-2x"></i></a>
+            </div>
+        </nav>
+    </div>
+  </div>
+</div>
+<script>
+particlesJS("particles", {
+    "particles": {
+        "number": {
+        "value": 80,
+        "density": {
+            "enable": true,
+            "value_area": 400
+        }
+        },
+        "color": {
+        "value": "#2AA198"
+        },
+        "shape": {
+        "type": "circle",
+        "stroke": {
+            "width": 0,
+            "color": "#000000"
+        },
+        "polygon": {
+            "nb_sides": 5
+        }
+        },
+        "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+        }
+        },
+        "size": {
+        "value": 10,
+        "random": true,
+        "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+        }
+        },
+        "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+        },
+        "move": {
+        "enable": true,
+        "speed": 0.25,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+        }
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+        "onhover": {
+            "enable": false,
+            "mode": "grab"
+        },
+        "onclick": {
+            "enable": true,
+            "mode": "push"
+        },
+        "resize": true
+        },
+        "modes": {
+        "grab": {
+            "distance": 140,
+            "line_linked": {
+            "opacity": 1
+            }
+        },
+        "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+        },
+        "repulse": {
+            "distance": 200,
+            "duration": 0.4
+        },
+        "push": {
+            "particles_nb": 4
+        },
+        "remove": {
+            "particles_nb": 2
+        }
+        }
+    },
+    "retina_detect": true
+    });
+</script>
+        
+
+        <div class="content container">
+
+            <!-- <section id="wrapper" class=""> -->
+            <article class="post">
+    <div class="post-header" id=header>
+        <h1 class="title">Crawling with Scrapy - Scraping TED Talk Transcripts</h1>
+        <h2 class="headline">November 15, 2016</h2>
+    </div>
+    <section id="post-body">
+        <p>I&#39;ve been looking for a project that will allow me to kick the tires on <a href="https://spacy.io/">Spacy</a>, the text analysis framework for python.  If you&#39;re confused ... I did mean <code class="inline-code">Spacy</code>, it&#39;s not my dyslexia flaring up.  Before I embark on a text analysis project, I first need an interesting text dataset... hence, this post about <a href="https://Scrapy.org/">Scrapy</a> and the process of scraping <a href="http://www.ted.com/">TED Talk</a> transcripts.</p>
+
+<h1>Scrapy</h1>
+
+<p>A past me would have hacked together a script that uses python&#39;s <a href="http://docs.python-requests.org/en/master/"><code class="inline-code">Request</code></a> library and <a href="http://lxml.de"><code class="inline-code">lxml</code></a> to sift through responses (<a href="https://github.com/blakeboswell/tedscrape">evidence</a>). However, I&#39;ve switched to <code class="inline-code">Scrapy</code> for all of my web scraping projects because I like that it forces consistent development patterns, is easy to extend, and has excellent <a href="https://Scrapy.org/doc/">documentation</a>.  <strong>Bonus</strong>: <code class="inline-code">Scrapy</code> is super powerful.</p>
+
+<h1>Scraping TED Talks</h1>
+
+<p>The goal of this effort is to scrape the transcripts of all TED Talks and additional meta information such as <code class="inline-code">speaker</code>, <code class="inline-code">title</code>, and <code class="inline-code">view count</code>.  All of this information is available from the <a href="http://www.ted.com/talks">TED Talk index page</a>.</p>
+
+<p>The TED Talk index page demonstrates a very common pattern encountered in web scraping.  It consists of a number of index pages; each page containing a collection of links to content of interest as well as links to other index pages that in turn contain more links to content of interest. Therefore, the scraping process will involve following a series of links to reach the content to be scraped.  <code class="inline-code">Scrapy</code> provides a very friendly interface for this process. </p>
+
+<h2>Python Setup</h2>
+
+<p>To use <code class="inline-code">Scrapy</code> we need python 2.7+ with the <code class="inline-code">Scrapy</code> package installed.  If you use <a href="https://conda.io/docs/intro.html"><code class="inline-code">conda</code></a> for python environment management you can set this up with the below commands:</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a><span class="nv">$ </span>conda create -n <span class="nv">$ENVNAME</span> <span class="nv">python</span><span class="o">=</span>3.5.2 scrapy
+<a name="line-2"></a><span class="nv">$ </span><span class="nb">source </span>activate <span class="nv">$ENVNAME</span>  <span class="c"># use source only if OSX/Linux</span>
+<a name="line-3"></a><span class="nv">$ </span>conda env <span class="nb">export</span> &gt; environment.yml
+</code></pre></div>
+<p>If you don&#39;t use <code class="inline-code">conda</code> to manage python, install <code class="inline-code">Scrapy</code> into your python 2.7+ environment in your usual way.  If you want to know more about managing python environments with <code class="inline-code">conda</code>, see <a href="http://blakeboswell.github.io/2016/conda-deploy/">here</a>.</p>
+
+<h2>Scrapy Project</h2>
+
+<blockquote>
+<p>The code is presented here in chunks.  See this <a href="https://github.com/blakeboswell/tedscrapy">repository</a> for the complete code without distracting commentary.</p>
+</blockquote>
+
+<p>Now that we&#39;re all setup in a python environment with <code class="inline-code">Scrapy</code>, we can use the <code class="inline-code">Scrapy</code> command line tool (cli) to create a new <code class="inline-code">Scrapy</code> project:</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a><span class="nv">$ </span>scrapy startproject <span class="nv">$PROJNAME</span>
+</code></pre></div>
+<p>The above command creates a new folder named <code class="inline-code">$PROJNAME</code> within the current directory containing all the artifacts we need for a <code class="inline-code">Scrapy</code> project.  Many files and folders are created ... we will ignore most for now and focus on the empty <code class="inline-code">$PROJNAME/spider</code> directory.</p>
+
+<h2>Spiders</h2>
+
+<p><a href="https://doc.scrapy.org/en/latest/topics/spiders.html">Spiders</a> contain the logic for sending requests, managing responses and dictating how links are followed. <code class="inline-code">CrawlSpiders</code> are a type of <code class="inline-code">spider</code> that provide a convienant rule-based system for crawling.</p>
+
+<p>In the <code class="inline-code">Scrapy</code> cli, we call the <code class="inline-code">genspider</code> command with flag <code class="inline-code">-t</code> and argument <code class="inline-code">crawl</code> to create a <code class="inline-code">CrawlSpider</code> template.   </p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a><span class="nv">$ </span><span class="nb">cd</span> <span class="nv">$PROJNAME</span>
+<a name="line-2"></a><span class="nv">$ </span>scrapy genspider -t crawl <span class="nv">$SPIDERNAME</span> ted.com
+</code></pre></div>
+<p>This command generates a <code class="inline-code">py</code> file named <code class="inline-code">$SPIDERNAME</code> in the directory <code class="inline-code">$PROJNAME/spider</code> containing a <code class="inline-code">CrawlSpider</code> class stub.  The class stub is as follows after minor edits discussed in detail below:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">from</span> <span class="nn">Scrapy.linkextractors</span> <span class="kn">import</span> <span class="n">LinkExtractor</span>
+<a name="line-2"></a><span class="kn">from</span> <span class="nn">Scrapy.spiders</span> <span class="kn">import</span> <span class="n">CrawlSpider</span><span class="p">,</span> <span class="n">Rule</span>
+<a name="line-3"></a>
+<a name="line-4"></a><span class="k">class</span> <span class="nc">TedSpider</span><span class="p">(</span><span class="n">CrawlSpider</span><span class="p">):</span>
+<a name="line-5"></a>    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;$SPIDER_NAME`</span>
+<a name="line-6"></a>    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;ted.com&#39;</span><span class="p">]</span>
+<a name="line-7"></a>    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;http://www.ted.com/talks&#39;</span><span class="p">]</span>
+<a name="line-8"></a>
+<a name="line-9"></a>    <span class="n">rules</span> <span class="o">=</span> <span class="p">(</span>
+<a name="line-10"></a>        <span class="n">Rule</span><span class="p">(</span><span class="n">LinkExtractor</span><span class="p">(</span><span class="n">allow</span><span class="o">=</span><span class="s">r&#39;\?page=\d+&#39;</span><span class="p">),</span>
+<a name="line-11"></a>        <span class="n">callback</span><span class="o">=</span><span class="s">&#39;parse_item&#39;</span><span class="p">))</span>
+<a name="line-12"></a>
+<a name="line-13"></a>    <span class="k">def</span> <span class="nf">parse_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<a name="line-14"></a>        <span class="k">pass</span>
+</code></pre></div>
+<h2>CrawlSpider 101</h2>
+
+<ul>
+<li><p>The <code class="inline-code">name</code> is how we refer to the <code class="inline-code">spider</code>.  We defined it when we called <code class="inline-code">spidergen</code>.</p></li>
+<li><p>The <code class="inline-code">allowed_domains</code> variable will stop the <code class="inline-code">spider</code> from falling victim to click bait or other links that lead out of the scope of your scraping efforts.  This was also defined in the call to <code class="inline-code">spidergen</code>.</p></li>
+<li><p>The <code class="inline-code">start_url</code> is the where the <code class="inline-code">spider</code> will begin crawling. I updated this value to be the TED Talk index page at <a href="http://www.ted.com/talks">http://www.ted.com/talks</a>.</p></li>
+<li><p>The <code class="inline-code">Rule</code> manages how links are processed. The <code class="inline-code">LinkExtractor</code> extracts all links from a page; filters out links that don&#39;t match the <code class="inline-code">allow</code> <code class="inline-code">regex</code> pattern; and passes the links that match to the <code class="inline-code">Rule</code>&#39;s <code class="inline-code">callback</code> method.</p></li>
+</ul>
+
+<p>Above we set the rule that if a link&#39;s url matches the pattern <code class="inline-code">\?page=\d+</code> it will be sent to the <code class="inline-code">callback</code> method <code class="inline-code">parse</code>. This pattern corresponds with urls for the paginated TED Talk index pages.</p>
+
+<p>Now we can scrape! Using the <code class="inline-code">Scrapy</code> cli:</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a><span class="c"># from the directory containing scrapy.cfg</span>
+<a name="line-2"></a>scrapy crawl <span class="nv">$SPIDERNAME</span>
+</code></pre></div>
+<p>Woot! look at all those index page urls washing over the terminal.</p>
+
+<blockquote>
+<p><strong>Slow your roll ...</strong>
+You may see many of the urls return a 429 status code, <em>too many concurrent requests</em>. You can prevent this by reducing the <code class="inline-code">CONCURRENT_REQUESTS</code> variable in <code class="inline-code">$PROJNAME/settings.py</code>. I have this set to <code class="inline-code">2</code> in my use case.. because I&#39;m in no hurry and don&#39;t want to strain TED servers.</p>
+</blockquote>
+
+<h2>More on LinkExtractors</h2>
+
+<p>Above, we only crawled the index pages.  Let&#39;s update the <code class="inline-code">Rules</code> to also return <code class="inline-code">Reponses</code> from Talk pages.</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="o">...</span>
+<a name="line-2"></a><span class="kn">from</span> <span class="nn">scrapy.http</span> <span class="kn">import</span> <span class="n">Request</span>
+<a name="line-3"></a><span class="o">...</span> 
+<a name="line-4"></a>
+<a name="line-5"></a><span class="n">rules</span> <span class="o">=</span> <span class="p">(</span>
+<a name="line-6"></a>    <span class="n">Rule</span><span class="p">(</span><span class="n">LinkExtractor</span><span class="p">(</span><span class="n">allow</span><span class="o">=</span><span class="s">r&#39;talks\?page=\d+&#39;</span><span class="p">),</span>
+<a name="line-7"></a>         <span class="n">follow</span><span class="o">=</span><span class="bp">True</span>
+<a name="line-8"></a>    <span class="p">),</span>
+<a name="line-9"></a>    <span class="n">Rule</span><span class="p">(</span><span class="n">LinkExtractor</span><span class="p">(</span><span class="n">allow</span><span class="o">=</span><span class="s">r&#39;talks\/[a-z_]+&#39;</span><span class="p">),</span>
+<a name="line-10"></a>         <span class="n">follow</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<a name="line-11"></a>         <span class="n">callback</span><span class="o">=</span><span class="s">&#39;parse_page&#39;</span>
+<a name="line-12"></a>    <span class="p">)</span>
+<a name="line-13"></a><span class="p">)</span>
+<a name="line-14"></a>
+<a name="line-15"></a><span class="k">def</span> <span class="nf">parse_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<a name="line-16"></a>    <span class="n">newurl</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/transcript?language=en&#39;</span> <span class="o">%</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span>
+<a name="line-17"></a>    <span class="k">yield</span> <span class="n">Request</span><span class="p">(</span><span class="n">newurl</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_transcript</span><span class="p">)</span>
+<a name="line-18"></a>
+<a name="line-19"></a><span class="k">def</span> <span class="nf">parse_transcript</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<a name="line-20"></a>    <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</code></pre></div>
+<p>Above we modifed the index page <code class="inline-code">Rule</code> by removing the <code class="inline-code">callback</code> and adding <code class="inline-code">follow=True</code>. This instructs the <code class="inline-code">spider</code> to follow an index page link and extract more links.  We also added a new <code class="inline-code">Rule</code> that extracts links with urls having pattern <code class="inline-code">talks\/[a-z_]+</code>. These urls correspond to the individual TED Talk pages.  When a TED Talk page url is encountered, the <code class="inline-code">Rule</code> kicks it over to the <code class="inline-code">parse_page</code> method.</p>
+
+<p>TED Talk pages each have a corresponding transcript page with url equal to talk page url + <code class="inline-code">/transcript?language=en</code>.  Therefore, to access the transcript page we perform a string join to build the transcript url and then yield a <code class="inline-code">Request</code> to this url.  We send the <code class="inline-code">Request</code> to a <code class="inline-code">callback</code> method that will eventually handle the parsing of the transcript.</p>
+
+<p>Now the crawling logic is in place.  We can test by running:</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a><span class="c"># from the directory containing scrapy.cfg</span>
+<a name="line-2"></a>scrapy crawl --nolog <span class="nv">$SPIDERNAME</span>
+</code></pre></div>
+<p>The <code class="inline-code">--nolog</code> flag prevents scrapy from flooding the terminal with logs so we can easily make out the print statements from <code class="inline-code">parse_transcripts</code>.</p>
+
+<h2>Even More on LinkExtractor</h2>
+
+<p>We can further focus the <code class="inline-code">spider</code> with <code class="inline-code">xpath</code> and the <code class="inline-code">LinkExtractor</code>&#39;s <code class="inline-code">restrict_xpaths</code> argument.</p>
+
+<p>The links of interest on TED pages correspond with particular html elements...  We can use this information to our advantage:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">pagexp</span> <span class="o">=</span> <span class="s">r&#39;//a[@class=&quot;pagination__item pagination__link&quot;]&#39;</span>
+<a name="line-2"></a><span class="n">talkxp</span> <span class="o">=</span> <span class="s">r&#39;//div[@class=&quot;media__image media__image--thumb talk-link__image&quot;]&#39;</span>
+<a name="line-3"></a>
+<a name="line-4"></a><span class="n">rules</span> <span class="o">=</span> <span class="p">(</span>
+<a name="line-5"></a>    <span class="n">Rule</span><span class="p">(</span><span class="n">LinkExtractor</span><span class="p">(</span><span class="n">allow</span><span class="o">=</span><span class="s">r&#39;talks\?page=\d+&#39;</span><span class="p">,</span>
+<a name="line-6"></a>                       <span class="n">restrict_xpaths</span><span class="o">=</span><span class="n">pagexp</span><span class="p">),</span>
+<a name="line-7"></a>         <span class="n">follow</span><span class="o">=</span><span class="bp">True</span>
+<a name="line-8"></a>    <span class="p">),</span>
+<a name="line-9"></a>    <span class="n">Rule</span><span class="p">(</span><span class="n">LinkExtractor</span><span class="p">(</span><span class="n">allow</span><span class="o">=</span><span class="s">r&#39;talks\/[a-z_]+&#39;</span><span class="p">,</span>
+<a name="line-10"></a>                       <span class="n">restrict_xpaths</span><span class="o">=</span><span class="n">talkxp</span><span class="p">),</span>
+<a name="line-11"></a>         <span class="n">follow</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<a name="line-12"></a>         <span class="n">callback</span><span class="o">=</span><span class="s">&#39;parse_page&#39;</span>
+<a name="line-13"></a>    <span class="p">)</span>
+<a name="line-14"></a><span class="p">)</span>
+</code></pre></div>
+<p>Above we are instructing the <code class="inline-code">spider</code> to only extract links from the html elements corresponding with the <code class="inline-code">restrict_xpaths</code> argument and to filter those links by the <code class="inline-code">allow</code> argument.  If you run the crawl process again, the <code class="inline-code">spider</code> will complete it&#39;s crawl much faster because it considers a smaller more targeted set of links.</p>
+
+<h2>Extracting Content from Reponses</h2>
+
+<p>Our TED <code class="inline-code">spider</code> is efficiently crawling over the appropriate pages, now its time to start extracting content.</p>
+
+<h2>Items</h2>
+
+<p>To begin, we define what we want to extract using <a href="https://doc.scrapy.org/en/1.2/topics/items.html">Scrapy Items</a>. <code class="inline-code">Items</code> are dictionary-like, and that is how use them in this example.  Why not use a dictionary instead? ... <code class="inline-code">Items</code> offer many features beyond the standard python dictionary geared towards extensibility and managing complexity in larger projects.</p>
+
+<p>When we created the <code class="inline-code">Scrapy</code> project, the file <code class="inline-code">$PROJHOME/items.py</code> was generated with a <code class="inline-code">scrapy.Item</code> class stub. Below, the stub is populated with fields to store the TED Talk information.  Additionally, I&#39;ve defined a dictionary to contain <code class="inline-code">xpaths</code> for extracting these fields from TED pages html. This is a design choice on my part... <code class="inline-code">xpaths</code> are messy and I don&#39;t want them obfuscating logic in the <code class="inline-code">spider</code>&#39;s parse functions.  The <code class="inline-code">xpaths</code> can be defined anywhere as long as they are accessible to the <code class="inline-code">spider</code>.</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">import</span> <span class="nn">scrapy</span>
+<a name="line-2"></a>
+<a name="line-3"></a><span class="c"># $PROJHOME = &#39;tedtalk&#39; in this example</span>
+<a name="line-4"></a><span class="k">class</span> <span class="nc">TedtalkItem</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Item</span><span class="p">):</span>
+<a name="line-5"></a>    <span class="sd">&#39;&#39;&#39; info scraped from tedtalk page</span>
+<a name="line-6"></a><span class="sd">    &#39;&#39;&#39;</span>
+<a name="line-7"></a>    <span class="n">title</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+<a name="line-8"></a>    <span class="n">speaker</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+<a name="line-9"></a>    <span class="n">viewn</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+<a name="line-10"></a>    <span class="n">transcript</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">()</span>
+<a name="line-11"></a>
+<a name="line-12"></a><span class="n">XPATHS</span> <span class="o">=</span> <span class="p">{</span>
+<a name="line-13"></a>    <span class="s">&#39;title&#39;</span><span class="p">:</span> <span class="s">&#39;//span[@class=&quot;player-hero__title__content&quot;]/text()&#39;</span><span class="p">,</span>
+<a name="line-14"></a>    <span class="s">&#39;speaker&#39;</span><span class="p">:</span> <span class="s">&#39;//span[@class=&quot;player-hero__speaker__content&quot;]/text()&#39;</span><span class="p">,</span>
+<a name="line-15"></a>    <span class="s">&#39;viewn&#39;</span><span class="p">:</span> <span class="s">&#39;//div[@id=&quot;sharing-count&quot;]/span/text()&#39;</span><span class="p">,</span>
+<a name="line-16"></a>    <span class="s">&#39;transcript&#39;</span><span class="p">:</span> <span class="s">&#39;//div[@class=&quot;talk-article__body talk-transcript__body&quot;]&#39;</span> <span class="o">+</span>
+<a name="line-17"></a>                  <span class="s">&#39;//span[@class=&quot;talk-transcript__para__text&quot;]//text()&#39;</span>
+<a name="line-18"></a><span class="p">}</span>
+</code></pre></div>
+<h2>Selectors</h2>
+
+<p><code class="inline-code">Scrapy</code> has <a href="https://doc.scrapy.org/en/0.12/topics/selectors.html">Selectors</a> built directly in the <code class="inline-code">Response</code> objects.  <code class="inline-code">Scrapy</code> <code class="inline-code">Selectors</code> allow selection by <code class="inline-code">xpath</code> and <code class="inline-code">css</code> for flexibility to handle different document structures.</p>
+
+<p>We apply <code class="inline-code">Selectors</code> along with the <code class="inline-code">TedtalkItem</code> and <code class="inline-code">XPATHS</code> defined above to complete the parse functions&#39; implementation:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="o">...</span>
+<a name="line-2"></a><span class="kn">from</span> <span class="nn">tedtalk.items</span> <span class="kn">import</span> <span class="n">TedtalkItem</span><span class="p">,</span> <span class="n">XPATHS</span>
+<a name="line-3"></a><span class="o">...</span>
+<a name="line-4"></a>
+<a name="line-5"></a><span class="k">def</span> <span class="nf">parse_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<a name="line-6"></a>    <span class="n">sel</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">selector</span>
+<a name="line-7"></a>    <span class="n">meta</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">sel</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">XPATHS</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+<a name="line-8"></a>            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;speaker&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">,</span> <span class="s">&#39;viewn&#39;</span><span class="p">]}</span>
+<a name="line-9"></a>    <span class="n">newurl</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/transcript?language=en&#39;</span> <span class="o">%</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span>
+<a name="line-10"></a>    <span class="k">yield</span> <span class="n">Request</span><span class="p">(</span><span class="n">newurl</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_transcript</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="n">meta</span><span class="p">)</span>
+<a name="line-11"></a>
+<a name="line-12"></a><span class="k">def</span> <span class="nf">parse_transcript</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+<a name="line-13"></a>    <span class="n">item</span> <span class="o">=</span> <span class="n">TedtalkItem</span><span class="p">()</span>
+<a name="line-14"></a>    <span class="n">sel</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">selector</span>
+<a name="line-15"></a>    <span class="n">transcript</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">XPATHS</span><span class="p">[</span><span class="s">&#39;transcript&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<a name="line-16"></a>    <span class="n">item</span><span class="p">[</span><span class="s">&#39;speaker&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;speaker&#39;</span><span class="p">]</span>
+<a name="line-17"></a>    <span class="n">item</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+<a name="line-18"></a>    <span class="n">item</span><span class="p">[</span><span class="s">&#39;viewn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">meta</span><span class="p">[</span><span class="s">&#39;viewn&#39;</span><span class="p">]</span>
+<a name="line-19"></a>    <span class="n">item</span><span class="p">[</span><span class="s">&#39;transcript&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transcript</span>
+<a name="line-20"></a>
+<a name="line-21"></a>    <span class="k">return</span> <span class="n">item</span>
+</code></pre></div>
+<p>Hopefully, the above code needs little explanation.</p>
+
+<h3>Request <code class="inline-code">meta</code> Argument</h3>
+
+<p>One element not previously discussed is the <code class="inline-code">meta</code> argument of the <code class="inline-code">Request</code> object.  This argument allows information to be carried forward as the <code class="inline-code">spider</code> crawls.  The attributes <code class="inline-code">speaker</code>, <code class="inline-code">title</code> and  <code class="inline-code">viewn</code> are parsed from the Talk page in <code class="inline-code">parse_page</code> and carried with the <code class="inline-code">Request</code> object to the <code class="inline-code">parse_transcript</code> method where they are finally loaded into the <code class="inline-code">TedtalkItem</code> along with the <code class="inline-code">transcript</code> attribute.</p>
+
+<p>Now the <code class="inline-code">spider</code> is crawling the appropriate pages and extracting the desired content. But you may be asking yourself.. Where do the returned <code class="inline-code">TedtalkItem</code>s go? That&#39;s where <code class="inline-code">Scrapy</code> <code class="inline-code">Pipelines</code> come into play.</p>
+
+<h2>Pipelines</h2>
+
+<p><a href="https://doc.scrapy.org/en/latest/topics/item-pipeline.html">Pipelines</a> are an extremely useful <code class="inline-code">Scrapy</code> feature that enable a sequence of methods to be applied to <code class="inline-code">Items</code> that are returned by the <code class="inline-code">spider</code>.</p>
+
+<p>When we created the <code class="inline-code">Scrapy</code> project, the file <code class="inline-code">$PROJHOME/pipelines.py</code> was generated with a <code class="inline-code">Pipeline</code> class stub. Below, the stub is replaced with a method for saving the data streamed from the <code class="inline-code">spider</code> to disk:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">import</span> <span class="nn">json</span>
+<a name="line-2"></a>
+<a name="line-3"></a><span class="k">class</span> <span class="nc">WriteJsonl</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<a name="line-4"></a>    <span class="sd">&#39;&#39;&#39; store TedtalkItems in jsonl file</span>
+<a name="line-5"></a><span class="sd">    &#39;&#39;&#39;</span>
+<a name="line-6"></a>    <span class="k">def</span> <span class="nf">open_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+<a name="line-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;tedtalk.jl&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<a name="line-8"></a>
+<a name="line-9"></a>    <span class="k">def</span> <span class="nf">close_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+<a name="line-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a name="line-11"></a>
+<a name="line-12"></a>    <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+<a name="line-13"></a>        <span class="n">line</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">item</span><span class="p">))</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+<a name="line-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<a name="line-15"></a>        <span class="k">return</span> <span class="n">item</span>
+</code></pre></div>
+<p>Note that this method implements the <code class="inline-code">open_spider</code> and <code class="inline-code">close_spider</code> methods.  This is only necessary to manage the creation and removal of the file object.  However, all <code class="inline-code">Pipelines</code> must implement a <code class="inline-code">process_items</code> method having the method signature above. The data here is being saved to a <a href="http://jsonlines.org/">json line</a> file which is a nice format for streamed data.</p>
+
+<p>To use a <code class="inline-code">Pipeline</code>, we must update the <code class="inline-code">$PROJHOME/settings.py</code> file:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">ITEM_PIPELINES</span> <span class="o">=</span> <span class="p">{</span>
+<a name="line-2"></a>   <span class="s">&#39;tedtalk.pipelines.WriteJsonl&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<a name="line-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>The value of the <code class="inline-code">ITEM_PIPELINES</code> dictionary dictates the order in which the <code class="inline-code">Pipeline</code>s are applied.</p>
+
+<p><code class="inline-code">Pipelines</code> are a nice feature if you are dealing with gnarly <code class="inline-code">Response</code>s in that you can pass them through a set of methods to clean, transform, and format the extracted data.</p>
+
+<p>The TED transcripts and meta information are by no means gnarly, but they do require new line stripping and other string operations.  A new <code class="inline-code">pipeline</code> to perform these operations should be added and the <code class="inline-code">ITEM_PIPELINES</code> updated so that cleaning is performed prior to writing.  This step is omitted here for brevity, but can be seen in the full code <a href="https://github.com/blakeboswell/tedscrapy/blob/f37592e1b36b059774f2a79776e0c17885dc61ea/tedtalk/tedtalk/pipelines.py#L5">here</a>.</p>
+
+<p><code class="inline-code">Pipelines</code> are great because they are a convenient mechanism for separating parsing, cleaning, and transforming extracted data from crawling logic.  This separation of responsibilities is important for maintainability in complex scraping projects.</p>
+
+<p>Now we have all we need to scrape the TED Talk transcripts.</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a><span class="c"># from the directory containing scrapy.cfg</span>
+<a name="line-2"></a>scrapy crawl <span class="nv">$SPIDERNAME</span>
+</code></pre></div>
+<h2>Conclusion</h2>
+
+<p>This turned out to be a much longer post than expected.  Especially since the point was to demonstrate how easy <code class="inline-code">Scrapy</code> makes web scraping efforts. But the point still stands.  <code class="inline-code">Scrapy</code> offers many powerful tools for large and small scraping projects.  We only scratched the surface of <code class="inline-code">Scrapy</code>&#39;s capability, check out their excellent <a href="https://Scrapy.org/doc/">documentation</a> to see more.</p>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+
+    <a href="https://twitter.com/lakebozbay">
+        <img class="avatar" src="/assets/images/avatar.jpg">
+        <div>
+            <span class="dark">Blake Boswell</span>
+            <span>Data Scientist | Developer</span>
+        </div>
+    </a>
+
+    <div style="float: right;">
+        <a class="socialicon" href="https://twitter.com/lakebozbay">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://github.com/blakeboswell">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </div>
+
+</footer>
+
+<!-- Disqus comments -->
+
+
+
+
+
+
+            <!-- </section> -->
+
+            <script src="/assets/js/main.js"></script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                TeX: { equationNumbers: { autoNumber: "AMS" } },
+                styles: {".MathJax": { color: "#666" } }
+                });
+            </script>
+
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-76539402-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+        </div>
+
+    </body>
+
+</html>
+
+
+

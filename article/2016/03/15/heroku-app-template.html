@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blake Boswell - Basic Heroku with Python (Anaconda) & Flask</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Blake Boswell" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/assets/js/min/particle.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/plotly-basic.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="/assets/js/min/d3.v3.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen|Raleway|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+
+</head>
+
+    
+    <body>
+            
+        <div class="sidebar">
+  <div id="particles"></div>
+    <div class="container">
+        <nav class="sidebar-nav">
+
+            <img class="sidebar-avatar" src="/assets/images/avatar.jpg"/>
+
+            <ul>
+                <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Articles </a></li>
+                <!-- <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Projects </a></li> -->
+                <li><a href="https://blakeboswell.github.iofeed.xml"
+                    style="font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;">
+                    RSS
+                    </a>
+                </li>
+            </ul>
+
+            <div style="text-align: center">
+                <br>
+                <a class="socialicon" href="https://twitter.com/lakebozbay"><i class="fa fa-twitter fa-2x"></i></a>
+                <a class="socialicon" href="https://github.com/blakeboswell"><i class="fa fa-github fa-2x"></i></a>
+                <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell"><i class="fa fa-linkedin fa-2x"></i></a>
+            </div>
+        </nav>
+    </div>
+  </div>
+</div>
+<script>
+particlesJS("particles", {
+    "particles": {
+        "number": {
+        "value": 80,
+        "density": {
+            "enable": true,
+            "value_area": 400
+        }
+        },
+        "color": {
+        "value": "#2AA198"
+        },
+        "shape": {
+        "type": "circle",
+        "stroke": {
+            "width": 0,
+            "color": "#000000"
+        },
+        "polygon": {
+            "nb_sides": 5
+        }
+        },
+        "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+        }
+        },
+        "size": {
+        "value": 10,
+        "random": true,
+        "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+        }
+        },
+        "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+        },
+        "move": {
+        "enable": true,
+        "speed": 0.25,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+        }
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+        "onhover": {
+            "enable": false,
+            "mode": "grab"
+        },
+        "onclick": {
+            "enable": true,
+            "mode": "push"
+        },
+        "resize": true
+        },
+        "modes": {
+        "grab": {
+            "distance": 140,
+            "line_linked": {
+            "opacity": 1
+            }
+        },
+        "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+        },
+        "repulse": {
+            "distance": 200,
+            "duration": 0.4
+        },
+        "push": {
+            "particles_nb": 4
+        },
+        "remove": {
+            "particles_nb": 2
+        }
+        }
+    },
+    "retina_detect": true
+    });
+</script>
+        
+
+        <div class="content container">
+
+            <!-- <section id="wrapper" class=""> -->
+            <article class="post">
+    <div class="post-header" id=header>
+        <h1 class="title">Basic Heroku with Python (Anaconda) & Flask</h1>
+        <h2 class="headline">March 15, 2016</h2>
+    </div>
+    <section id="post-body">
+        <p>This is my first <a href="https://www.heroku.com/">Heroku</a> app with Python and will serve to document the process for later apps.</p>
+
+<p>My System Specs:</p>
+<div class="highlight"><pre><code class="text"><a name="line-1"></a>OS X El Capitan, Version 10.11.1
+<a name="line-2"></a>Python 2.7.10 :: Continuum Analytics, Inc.
+</code></pre></div>
+<p>My end goal is to create a Flask app on Heroku that accepts a user input stock ticker and plots closing price data for the previous 30 days. I will access data via <a href="https://www.quandl.com/">Quandl</a> which provides free access to stock data.</p>
+
+<blockquote>
+<p>The end result can be seen <a href="https://boz-financialapp.herokuapp.com">here</a>.</p>
+</blockquote>
+
+<p>Throughout the process, I referenced this <a href="https://realpython.com/blog/python/flask-by-example-part-1-project-setup">Heroku tutorial</a> as well as the <a href="https://devcenter.heroku.com/articles/getting-started-with-python#introduction">Heroku Dev Center Python Intro</a>.  While very helpful, these tutorials did not directly address some of my interests, most notably:</p>
+
+<ul>
+<li>I use the Anaconda python distribution</li>
+<li>While not relevant to the Stock choice app, I want experience deploying scientific libraries distributed with Anaconda (scipy, scikit-learn etc.)</li>
+</ul>
+
+<h1>Getting Started</h1>
+
+<p>To make this process easier to generalize, I will append <code class="inline-code">_finl</code> or <code class="inline-code">-finl</code> to the end of names which can be changed without penalty. To understand what a name represents drop the <code class="inline-code">_finl</code> / <code class="inline-code">-finl</code>.</p>
+
+<h2>Git</h2>
+
+<p>In addition to being a good idea for coding projects, Git is required for Heroku.  The first step is to initialize a git repository in an empty folder and (optionally) push it to a repository hosting service.  I created an app folder named <code class="inline-code">app-folder-finl</code>, initialized git, and pushed to Github.</p>
+
+<h2>Application Directory</h2>
+
+<p>Run the following terminal commands from within the app directory to create the necessary files and folders:</p>
+<div class="highlight"><pre><code class="Bash"><a name="line-1"></a><span class="nv">$ </span>touch app_finl.py conda-requirements.txt Procfile requirements.txt runtime.txt
+<a name="line-2"></a><span class="nv">$ </span>mkdir static templates
+</code></pre></div>
+<p>Which produces the following directory structure:</p>
+<div class="highlight"><pre><code class="text"><a name="line-1"></a>├── app-folder-finl/
+<a name="line-2"></a>    ├── app-finl.py
+<a name="line-3"></a>    ├── conda-requirements.txt
+<a name="line-4"></a>    ├── Procfile
+<a name="line-5"></a>    ├── requirements.txt
+<a name="line-6"></a>    ├── runtime.txt
+<a name="line-7"></a>    ├── static/
+<a name="line-8"></a>    └── templates/
+</code></pre></div>
+<p>The below sections will cover what each file and folder does and what information they should contain.  In general:</p>
+
+<ul>
+<li><code class="inline-code">app-finl.py</code>, <code class="inline-code">static/</code>, and <code class="inline-code">templates/</code> are standard <code class="inline-code">flask</code> structure</li>
+<li><code class="inline-code">conda-requirements.txt</code>, <code class="inline-code">requirements.txt</code>, <code class="inline-code">runtime.txt</code>, and <code class="inline-code">Procfile</code> are specific to Heroku deployment</li>
+</ul>
+
+<h2>Python Environment</h2>
+
+<p>Heroku limits the final application footprint (slug) size (<em>300MB at the time of writing this</em>).  Therefore, its beneficial to limit your Python environment to only libraries that are essential to the app&#39;s function.</p>
+
+<p>We definitely need <code class="inline-code">flask</code>.  Additionally, Heroku recommends the package <code class="inline-code">gunicorn</code> so that apps can process incoming HTTP requests concurrently. I also want to confirm that I can deploy the following libraries: <code class="inline-code">nltk</code>, <code class="inline-code">numpy</code>, <code class="inline-code">pandas</code>, <code class="inline-code">scikit-learn</code>, and <code class="inline-code">scipy</code>.</p>
+
+<p>Create and activate the virtual environment:</p>
+<div class="highlight"><pre><code class="Bash"><a name="line-1"></a><span class="nv">$ </span>conda create -n env-name-finl flask gunicorn nltk numpy pandas scikit-learn scipy
+<a name="line-2"></a><span class="nv">$ </span><span class="nb">source </span>activate env-name-finl
+</code></pre></div>
+<h2>Flask Site Content</h2>
+
+<p>The financial app&#39;s <code class="inline-code">flask</code> content can be seen <a href="https://github.com/blakeboswell/heroku-financial-app/blob/master/app.py">here</a>.  However, for brevity and completeness I&#39;ll only include <code class="inline-code">flask</code> hello world in this post.</p>
+<div class="highlight"><pre><code class="Python"><a name="line-1"></a><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<a name="line-2"></a><span class="n">app_finl</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<a name="line-3"></a>
+<a name="line-4"></a><span class="nd">@app_finl.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<a name="line-5"></a><span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+<a name="line-6"></a>    <span class="k">return</span> <span class="s">&quot;Hello World!&quot;</span>
+<a name="line-7"></a>
+<a name="line-8"></a><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<a name="line-9"></a>    <span class="n">app_finl</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<p>If you are new to <code class="inline-code">flask</code>, this <a href="https://github.com/bev-a-tron/MyFlaskTutorial">flask tutorial</a> is excellent. Run the <code class="inline-code">flask</code> app locally:</p>
+<div class="highlight"><pre><code class="Bash"><a name="line-1"></a><span class="nv">$ </span>python app_finl.py
+</code></pre></div>
+<p>You can see the app in action at <a href="http://localhost:5000/">http://localhost:5000/</a>. Kill the server after you have finished admiring your work.</p>
+
+<h1>Deploying to Heroku</h1>
+
+<p>Before deploying to Heroku you need the Heroku Toolbelt which can be downloaded <a href="https://toolbelt.heroku.com/">here</a>.</p>
+
+<p>After the Heroku toolbelt is setup, add the virtual environment&#39;s python version to <code class="inline-code">runtime.txt</code> and a reference to <code class="inline-code">gunicorn</code> in the <code class="inline-code">Procfile</code>.</p>
+<div class="highlight"><pre><code class="text"><a name="line-1"></a># runtime.txt
+<a name="line-2"></a>python-2.7.10
+</code></pre></div><div class="highlight"><pre><code class="text"><a name="line-1"></a># Procfile
+<a name="line-2"></a>web: gunicorn app:app
+</code></pre></div>
+<p>For more information about the Procfile <code class="inline-code">gunicorn</code> reference see this <a href="https://devcenter.heroku.com/articles/python-gunicorn">link</a>.</p>
+
+<h2>Heroku Python Environments</h2>
+
+<p>To install the conda scientific libraries we will need to use a special Heroku buildpack developed by <a href="https://github.com/kennethreitz/conda-buildpack">Kenneth Reitz</a>. When using this buildpack, the <code class="inline-code">requirements.txt</code> file designates packages that should be installed using pip. Packages that should be installed using conda are listed in the <code class="inline-code">conda-requirements.txt</code> file.</p>
+
+<p>To sort out what packages I need to include in each requirement file, I took the following approach:</p>
+
+<p>First I write out all packages to <code class="inline-code">requirements.txt</code>:</p>
+<div class="highlight"><pre><code class="Bash"><a name="line-1"></a><span class="nv">$ </span>pip freeze &gt; requirements.txt
+</code></pre></div>
+<p>I then removed the packages that I usually associate with conda from <code class="inline-code">requirements.txt</code>, and placed them in <code class="inline-code">conda-requirements.txt</code>.  From my testing, only <code class="inline-code">scikit-learn</code> and <code class="inline-code">scipy</code> cause issues when building with pip. In the end, my <code class="inline-code">requirements.txt</code> and <code class="inline-code">conda-requirements.txt</code> look as follows:</p>
+<div class="highlight"><pre><code class="text"><a name="line-1"></a># conda-requirements.txt
+<a name="line-2"></a>scipy
+<a name="line-3"></a>numpy
+<a name="line-4"></a>pandas
+<a name="line-5"></a>nltk
+<a name="line-6"></a>scikit-learn
+</code></pre></div><div class="highlight"><pre><code class="text"><a name="line-1"></a># requirements.txt
+<a name="line-2"></a>Flask==0.10.1
+<a name="line-3"></a>gunicorn==19.1.0
+<a name="line-4"></a>itsdangerous==0.24
+<a name="line-5"></a>Jinja2==2.8
+<a name="line-6"></a>MarkupSafe==0.23
+<a name="line-7"></a>PasteDeploy==1.5.2
+<a name="line-8"></a>python-dateutil==2.4.2
+<a name="line-9"></a>pytz==2015.7
+<a name="line-10"></a>PyYAML==3.11
+<a name="line-11"></a>six==1.10.0
+<a name="line-12"></a>Werkzeug==0.10.4
+<a name="line-13"></a>wheel==0.26.0
+</code></pre></div>
+<h2>Going Live</h2>
+
+<p>Before deploying live to Heroku, commit all changes to git and optionally push to your repository host. Then create a new Heroku app using the <code class="inline-code">heroku create</code> command with the <code class="inline-code">buildpack</code> argument that points to the conda buildpack located at <code class="inline-code">https://github.com/kennethreitz/conda-buildpack.git</code>.</p>
+<div class="highlight"><pre><code class="Bash"><a name="line-1"></a><span class="nv">$ </span>heroku create app-name-finl --buildpack https://github.com/kennethreitz/conda-buildpack.git
+</code></pre></div>
+<p>Add the new app to your git remote:</p>
+<div class="highlight"><pre><code class="Bash"><a name="line-1"></a><span class="nv">$ </span>git remote add remote-name-finl git@heroku.com:app-name-finl.git
+</code></pre></div>
+<p>Note the pattern of the above is</p>
+<div class="highlight"><pre><code class="Bash"><a name="line-1"></a>git remote add <span class="nv">$REMOTE_NAME</span> git@heroku.com:<span class="nv">$YOUR_APP_NAME</span>.git<span class="sb">`</span>
+</code></pre></div>
+<p>Run the following to deploy your site live to Heroku.  Note that it could take a few minutes to build:</p>
+<div class="highlight"><pre><code class="Bash"><a name="line-1"></a><span class="nv">$ </span>git push heroku master
+</code></pre></div>
+<p>That&#39;s it!  If all went well there will be an app at <code class="inline-code">https://$YOUR_APP_NAME.herokuapp.com/</code>.</p>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+
+    <a href="https://twitter.com/lakebozbay">
+        <img class="avatar" src="/assets/images/avatar.jpg">
+        <div>
+            <span class="dark">Blake Boswell</span>
+            <span>Data Scientist | Developer</span>
+        </div>
+    </a>
+
+    <div style="float: right;">
+        <a class="socialicon" href="https://twitter.com/lakebozbay">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://github.com/blakeboswell">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </div>
+
+</footer>
+
+<!-- Disqus comments -->
+
+
+
+
+
+
+            <!-- </section> -->
+
+            <script src="/assets/js/main.js"></script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                TeX: { equationNumbers: { autoNumber: "AMS" } },
+                styles: {".MathJax": { color: "#666" } }
+                });
+            </script>
+
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-76539402-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+        </div>
+
+    </body>
+
+</html>
+
+
+

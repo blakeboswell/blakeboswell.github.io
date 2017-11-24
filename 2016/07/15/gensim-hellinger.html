@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blake Boswell - Hellinger Distance for Topic Model Visualization</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Blake Boswell" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/assets/js/min/particle.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/plotly-basic.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="/assets/js/min/d3.v3.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen|Raleway|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+
+</head>
+
+    
+    <body>
+            
+        <div class="sidebar">
+  <div id="particles"></div>
+    <div class="container">
+        <nav class="sidebar-nav">
+
+            <img class="sidebar-avatar" src="/assets/images/avatar.jpg"/>
+
+            <ul>
+                <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Articles </a></li>
+                <!-- <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Projects </a></li> -->
+                <li><a href="https://blakeboswell.github.iofeed.xml"
+                    style="font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;">
+                    RSS
+                    </a>
+                </li>
+            </ul>
+
+            <div style="text-align: center">
+                <br>
+                <a class="socialicon" href="https://twitter.com/lakebozbay"><i class="fa fa-twitter fa-2x"></i></a>
+                <a class="socialicon" href="https://github.com/blakeboswell"><i class="fa fa-github fa-2x"></i></a>
+                <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell"><i class="fa fa-linkedin fa-2x"></i></a>
+            </div>
+        </nav>
+    </div>
+  </div>
+</div>
+<script>
+particlesJS("particles", {
+    "particles": {
+        "number": {
+        "value": 80,
+        "density": {
+            "enable": true,
+            "value_area": 400
+        }
+        },
+        "color": {
+        "value": "#2AA198"
+        },
+        "shape": {
+        "type": "circle",
+        "stroke": {
+            "width": 0,
+            "color": "#000000"
+        },
+        "polygon": {
+            "nb_sides": 5
+        }
+        },
+        "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+        }
+        },
+        "size": {
+        "value": 10,
+        "random": true,
+        "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+        }
+        },
+        "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+        },
+        "move": {
+        "enable": true,
+        "speed": 0.25,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+        }
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+        "onhover": {
+            "enable": false,
+            "mode": "grab"
+        },
+        "onclick": {
+            "enable": true,
+            "mode": "push"
+        },
+        "resize": true
+        },
+        "modes": {
+        "grab": {
+            "distance": 140,
+            "line_linked": {
+            "opacity": 1
+            }
+        },
+        "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+        },
+        "repulse": {
+            "distance": 200,
+            "duration": 0.4
+        },
+        "push": {
+            "particles_nb": 4
+        },
+        "remove": {
+            "particles_nb": 2
+        }
+        }
+    },
+    "retina_detect": true
+    });
+</script>
+        
+
+        <div class="content container">
+
+            <!-- <section id="wrapper" class=""> -->
+            <article class="post">
+    <div class="post-header" id=header>
+        <h1 class="title">Hellinger Distance for Topic Model Visualization</h1>
+        <h2 class="headline">July 15, 2016</h2>
+    </div>
+    <section id="post-body">
+        <h1>Topic Similarity Network</h1>
+
+<p>An interesting way to visualize topics generated by Latent Dirichlet Allocation (LDA) is to plot a graph with nodes representing topics and edges representing distance between topics.</p>
+
+<hr>
+
+<div>
+    <div id="chartblabla"></div>
+    <script type="text/javascript" src="https://blakeboswell.github.io/assets/js/force.js"></script>
+</div>
+
+<hr>
+
+<p>Thanks to <a href="https://radimrehurek.com/gensim/">Gensim</a>, training LDA topic models in Python is a straight forward process.  Additionally, Gensim offers many similarity and distance measures such as <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>, <a href="https://en.wikipedia.org/wiki/Hellinger_distance">Hellinger distance</a>, <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback–Leibler divergence</a>, and <a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard distance</a>. See this <a href="https://github.com/RaRe-Technologies/gensim/blob/develop/docs/notebooks/distance_metrics.ipynb">notebook</a> for an overview of the metrics available in Gensim. </p>
+
+<p>However, Gensim&#39;s distance measures only calculate distance between two vectors.  This is less than ideal for building Topic Similarity Networks where the goal is to calculate distance among all topics in a model.  Below is an approach for exposing LDA topics as a matrix and efficiently calculating distance between all topics.</p>
+
+<h1>Topic Similarity</h1>
+
+<p>In the case of LDA topics, vectors represent discrete probability distributions and therefore the Hellinger Distance is an appropriate measure.</p>
+
+<h1>Hellinger Distance</h1>
+
+<p>Hellinger distance (also called Bhattacharyya distance) measures the distance between two probability distributions. For two discrete probability distributions \(P = (p_1, p_2, \cdots p_n)\) and \(Q = (q_1, q_2, \cdots q_n)\), the Hellinger distance is defined as:
+\begin{equation*}
+\text{H}(P,Q) = \frac{1}{\sqrt{2}}\left\lVert\sqrt{P}-\sqrt{Q}\right\rVert_2
+\end{equation*}</p>
+
+<p>An implementation of the Hellinger Distance in Python using <code class="inline-code">scipy.spatial.distance</code> and <code class="inline-code">numpy</code> is as follows:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<a name="line-2"></a><span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">pdist</span><span class="p">,</span> <span class="n">squareform</span>
+<a name="line-3"></a>
+<a name="line-4"></a><span class="k">def</span> <span class="nf">hellinger</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<a name="line-5"></a>    <span class="k">return</span> <span class="n">squareform</span><span class="p">(</span><span class="n">pdist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<h1>Hellinger Distance among Topics</h1>
+
+<p>To construct a Topic Similarity Network we access a matrix of LDA topics using the <code class="inline-code">get_lambda()</code> method, e.g.</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">lda</span> <span class="o">=</span> <span class="n">LdaModel</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">num_topics</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<a name="line-2"></a><span class="n">X</span> <span class="o">=</span> <span class="n">lda</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">get_lambda</span><span class="p">()</span>
+<a name="line-3"></a><span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">/</span> <span class="n">X</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="c"># normalize vector</span>
+<a name="line-4"></a><span class="n">h</span> <span class="o">=</span> <span class="n">hellinger</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</code></pre></div>
+<h1>Building the Network</h1>
+
+<p>The below script is a simple example of building a Topic Similarity Network using the <code class="inline-code">networkx</code> package.  In this implementation, I define edge weight for edges <code class="inline-code">(i, j)</code> to be <code class="inline-code">1 - Hellinger Distance</code> between topics <code class="inline-code">(i, j)</code>, and filter to only connect nodes having weight greater than the 80th percentile of all weights in the network.</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">import</span> <span class="nn">networkx</span>
+<a name="line-2"></a><span class="kn">import</span> <span class="nn">itertools</span> <span class="kn">as</span> <span class="nn">itt</span>
+<a name="line-3"></a>
+<a name="line-4"></a><span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;weight&#39;</span><span class="p">:</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]})</span>
+<a name="line-5"></a>         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itt</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">lda</span><span class="o">.</span><span class="n">num_topics</span><span class="p">),</span> <span class="mi">2</span><span class="p">)]</span>
+<a name="line-6"></a><span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s">&#39;weight&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">]),</span> <span class="mi">80</span><span class="p">)</span>
+<a name="line-7"></a>
+<a name="line-8"></a><span class="n">G</span> <span class="o">=</span> <span class="n">networkx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+<a name="line-9"></a><span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">lda</span><span class="o">.</span><span class="n">num_topics</span><span class="p">))</span>
+<a name="line-10"></a><span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">([</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span> <span class="k">if</span> <span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s">&#39;weight&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">])</span>
+</code></pre></div>
+<h1>Other Considerations</h1>
+
+<p>Interpretability of the network can be increased by altering node-size according to topic prevalance as well as using heuristics to develop labels for topics.  An interesting approach to developing more informative Topic Similarity networks is discussed in this paper by <a href="https://arxiv.org/pdf/1409.7591.pdf">Maiya and Rolfe</a></p>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+
+    <a href="https://twitter.com/lakebozbay">
+        <img class="avatar" src="/assets/images/avatar.jpg">
+        <div>
+            <span class="dark">Blake Boswell</span>
+            <span>Data Scientist | Developer</span>
+        </div>
+    </a>
+
+    <div style="float: right;">
+        <a class="socialicon" href="https://twitter.com/lakebozbay">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://github.com/blakeboswell">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </div>
+
+</footer>
+
+<!-- Disqus comments -->
+
+
+
+
+
+
+            <!-- </section> -->
+
+            <script src="/assets/js/main.js"></script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                TeX: { equationNumbers: { autoNumber: "AMS" } },
+                styles: {".MathJax": { color: "#666" } }
+                });
+            </script>
+
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-76539402-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+        </div>
+
+    </body>
+
+</html>
+
+
+

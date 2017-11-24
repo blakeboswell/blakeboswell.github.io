@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blake Boswell - Iman Conover Method for Generating Correlated Samples</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Blake Boswell" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/assets/js/min/particle.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/plotly-basic.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="/assets/js/min/d3.v3.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen|Raleway|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+
+</head>
+
+    
+    <body>
+            
+        <div class="sidebar">
+  <div id="particles"></div>
+    <div class="container">
+        <nav class="sidebar-nav">
+
+            <img class="sidebar-avatar" src="/assets/images/avatar.jpg"/>
+
+            <ul>
+                <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Articles </a></li>
+                <!-- <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Projects </a></li> -->
+                <li><a href="https://blakeboswell.github.iofeed.xml"
+                    style="font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;">
+                    RSS
+                    </a>
+                </li>
+            </ul>
+
+            <div style="text-align: center">
+                <br>
+                <a class="socialicon" href="https://twitter.com/lakebozbay"><i class="fa fa-twitter fa-2x"></i></a>
+                <a class="socialicon" href="https://github.com/blakeboswell"><i class="fa fa-github fa-2x"></i></a>
+                <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell"><i class="fa fa-linkedin fa-2x"></i></a>
+            </div>
+        </nav>
+    </div>
+  </div>
+</div>
+<script>
+particlesJS("particles", {
+    "particles": {
+        "number": {
+        "value": 80,
+        "density": {
+            "enable": true,
+            "value_area": 400
+        }
+        },
+        "color": {
+        "value": "#2AA198"
+        },
+        "shape": {
+        "type": "circle",
+        "stroke": {
+            "width": 0,
+            "color": "#000000"
+        },
+        "polygon": {
+            "nb_sides": 5
+        }
+        },
+        "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+        }
+        },
+        "size": {
+        "value": 10,
+        "random": true,
+        "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+        }
+        },
+        "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+        },
+        "move": {
+        "enable": true,
+        "speed": 0.25,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+        }
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+        "onhover": {
+            "enable": false,
+            "mode": "grab"
+        },
+        "onclick": {
+            "enable": true,
+            "mode": "push"
+        },
+        "resize": true
+        },
+        "modes": {
+        "grab": {
+            "distance": 140,
+            "line_linked": {
+            "opacity": 1
+            }
+        },
+        "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+        },
+        "repulse": {
+            "distance": 200,
+            "duration": 0.4
+        },
+        "push": {
+            "particles_nb": 4
+        },
+        "remove": {
+            "particles_nb": 2
+        }
+        }
+    },
+    "retina_detect": true
+    });
+</script>
+        
+
+        <div class="content container">
+
+            <!-- <section id="wrapper" class=""> -->
+            <article class="post">
+    <div class="post-header" id=header>
+        <h1 class="title">Iman Conover Method for Generating Correlated Samples</h1>
+        <h2 class="headline">May 30, 2016</h2>
+    </div>
+    <section id="post-body">
+        <p>An important aspect of Monte Carlo simulation is capturing interdependencies between variables.  A popular approach is to approximate linear correlation between variables via Rank Correlation using the <a href="https://www.uio.no/studier/emner/matnat/math/STK4400/v05/undervisningsmateriale/A%20distribution-free%20approach%20to%20rank%20correlation.pdf">Iman-Conover Method</a>.</p>
+
+<h2>Iman-Conover Overview</h2>
+
+<p>The Iman-Conover method is a useful way to enforce an independence structure on a \(d\)-dimensional set of \(n\) samples.  The method is quite elegant and can be written concisely.</p>
+
+<blockquote>
+<p>Let \(S\) be the correlation matrix representing the target independence structure.</p>
+
+<p>Let \(M\) be a \(n\)x\(d\) matrix having independent columns with <em>mean</em> \(0\) and <em>standard deviation</em> \(1\) such that \(\text{Corr}(M) \equiv I\).</p>
+
+<p>Let \(C\) be the Cholesky root of \(S\) such that \(S=C&#39;C\).
+It follows that:
+\begin{align*}
+N = MC
+\implies \text{Corr}(N) &amp;= N&#39;N \\
+&amp;= C&#39;M&#39;MC \\
+&amp;= C&#39;IC \\
+&amp;= S
+\end{align*}</p>
+</blockquote>
+
+<p>It may not be obvious that \(\text{Corr}(N) = N&#39;N \) but it can be shown that by construction \(N\) has columns with <em>mean</em> \(0\) and <em>standard deviation</em> \(1\). That is omitted here for brevity.</p>
+
+<p>In practice, the Iman-Conover method allows for samples to be ordered such that their rank is equal to the rank of \(N\).  Thereby approximating the linear correlation measure, \(S\).</p>
+
+<h2>Iman-Conover Implementation</h2>
+
+<p>The first step is to generate \(n\) samples for a \(d\)-dimensional distribution, \(M\), such that \(\text{Corr}(M) \equiv I\).  In other words a \(d\)-dimensional distribution where all dimensions are independent.</p>
+
+<p>Numerically, we can construct \(M\) in python as follows:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">import</span> <span class="nn">scipy</span> <span class="kn">as</span> <span class="nn">sp</span>
+<a name="line-2"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<a name="line-3"></a>
+<a name="line-4"></a><span class="k">def</span> <span class="nf">col_independent_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+<a name="line-5"></a>    <span class="sd">&quot;&quot;&quot; return array with shape (n, d) where each</span>
+<a name="line-6"></a><span class="sd">        column is approximately independent</span>
+<a name="line-7"></a><span class="sd">    &quot;&quot;&quot;</span> 
+<a name="line-8"></a>    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<a name="line-9"></a>    <span class="n">p</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<a name="line-10"></a>    <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">p</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<a name="line-11"></a>    <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+<a name="line-12"></a>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">score</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+<a name="line-13"></a>        <span class="n">score</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<a name="line-14"></a>    <span class="k">return</span> <span class="n">score</span>
+</code></pre></div>
+<p>Above, we are taking the <strong>Normal Copula Approach</strong>.  This entails using the <em>Standard Normal Distribution</em> to generate scores having <em>mean</em> \(0\) and <em>standard deviation</em> \(1\).  To reduce complexity, we only generate one array of scores and then randomly permute it \(d\) times to achieve an independent column matrix.</p>
+
+<p>We can test that the columns of \(M\) are independent via:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">4</span>
+<a name="line-2"></a><span class="n">M</span> <span class="o">=</span> <span class="n">col_independent_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<a name="line-3"></a><span class="mf">1.</span><span class="o">/</span><span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+</code></pre></div>
+<p>Which returns a matrix <em>approximately</em> equal to \(I\) having difference attributable to sampling error.</p>
+
+<p>Corrections can be applied to reduce the distance between \(\text{Corr}(M)\) and \(I\).  One correction is to normalize \(p\) guaranteeing  <em>mean</em> \(0\) and standard deviation \(1\).  We applied this correction in line 5 of the <code class="inline-code">col_independent_matrix</code> function above.  The second is to amend Iman-Conover as follows:</p>
+
+<blockquote>
+<p>Let \(D = n^{-1}M&#39;M\) be the correlation matrix of \(M\). Define \(E\) as the Cholesky root of \(D\) such that \(D = E&#39;E\). It follows that
+\begin{align*}
+N = ME^{-1}C \implies \text{Corr}(N) &amp;= n^{-1}N&#39;N \\
+&amp;= C&#39;E&#39;^{-1}n^{-1}M&#39;ME^{-1}C \\
+&amp;= C&#39;E&#39;^{-1}DE^{-1}C \\
+&amp;=C&#39;E&#39;^{-1}E&#39;EE^{-1}C \\
+&amp;=C&#39;C \\
+&amp;=S
+\end{align*}</p>
+</blockquote>
+
+<p>Now that we have a suitable \(M\), we find the Cholesky root of the target correlation matrix.  That is, we want \(C\) such that \(S=C&#39;C\) where \(S\) is the correlation matrix describing the desired interdependence structure. <a href="https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.linalg.cholesky.html"><code class="inline-code">scipy</code></a> makes this step super easy:</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">C</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+</code></pre></div>
+<p>Finally, we need functions to calculate the ranks of \(N\) and to reorder the \(d\)-dimensional distribution of \(n\) samples.</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="k">def</span> <span class="nf">rank</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+<a name="line-2"></a>    <span class="sd">&quot;&quot;&quot; return the rank order of elements in array </span>
+<a name="line-3"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a name="line-4"></a>    <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span>
+<a name="line-5"></a>    <span class="n">rank</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+<a name="line-6"></a>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<a name="line-7"></a>        <span class="n">rank</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">rankdata</span><span class="p">(</span><span class="n">arr</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;ordinal&#39;</span><span class="p">)</span>
+<a name="line-8"></a>    <span class="k">return</span> <span class="n">rank</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<a name="line-9"></a>
+<a name="line-10"></a>
+<a name="line-11"></a><span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
+<a name="line-12"></a>    <span class="sd">&quot;&quot;&quot; order each column of samples according to rank</span>
+<a name="line-13"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a name="line-14"></a>    <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">samples</span><span class="o">.</span><span class="n">shape</span>
+<a name="line-15"></a>    <span class="n">rank_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+<a name="line-16"></a>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<a name="line-17"></a>        <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">samples</span><span class="p">[:,</span> <span class="n">j</span><span class="p">])</span>
+<a name="line-18"></a>        <span class="n">rank_samples</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">rank</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]]</span>
+<a name="line-19"></a>    <span class="k">return</span> <span class="n">rank_samples</span>
+</code></pre></div>
+<p>Now we have all the components, its time to do the Iman-Conover magic.  Below we generate the <code class="inline-code">rank</code> matrix for the case where \(n=1000\) and \(d = 2\) and the correlation coefficient \(\rho=0.5\).</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span>
+<a name="line-2"></a><span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(([</span><span class="mf">1.</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">],</span>
+<a name="line-3"></a>              <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]))</span>
+<a name="line-4"></a><span class="n">C</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+<a name="line-5"></a><span class="n">M</span> <span class="o">=</span> <span class="n">col_independent_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<a name="line-6"></a><span class="n">D</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+<a name="line-7"></a><span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+<a name="line-8"></a><span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">E</span><span class="p">)),</span> <span class="n">C</span><span class="p">)</span>
+<a name="line-9"></a><span class="n">R</span> <span class="o">=</span> <span class="n">rank</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+</code></pre></div>
+<p>It&#39;s important to note that no knowledge of the marginal distributions being correlated is required to generate the rank structure.  Below we define two (arbitrarily chosen) distributions on which to induce correlation.</p>
+<div class="highlight"><pre><code class="python"><a name="line-1"></a><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">beta</span>
+<a name="line-2"></a><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">uniform</span>
+<a name="line-3"></a><span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span>
+<a name="line-4"></a>    <span class="p">[</span><span class="n">gamma</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">uniform</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">n</span><span class="p">)],</span>
+<a name="line-5"></a>    <span class="p">[</span><span class="n">beta</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">uniform</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
+<a name="line-6"></a><span class="p">))</span>
+<a name="line-7"></a><span class="n">dists</span> <span class="o">=</span> <span class="n">order</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">dists</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<a name="line-8"></a><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">dists</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</code></pre></div>
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+
+    <a href="https://twitter.com/lakebozbay">
+        <img class="avatar" src="/assets/images/avatar.jpg">
+        <div>
+            <span class="dark">Blake Boswell</span>
+            <span>Data Scientist | Developer</span>
+        </div>
+    </a>
+
+    <div style="float: right;">
+        <a class="socialicon" href="https://twitter.com/lakebozbay">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://github.com/blakeboswell">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </div>
+
+</footer>
+
+<!-- Disqus comments -->
+
+
+
+
+
+
+            <!-- </section> -->
+
+            <script src="/assets/js/main.js"></script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                TeX: { equationNumbers: { autoNumber: "AMS" } },
+                styles: {".MathJax": { color: "#666" } }
+                });
+            </script>
+
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-76539402-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+        </div>
+
+    </body>
+
+</html>
+
+
+

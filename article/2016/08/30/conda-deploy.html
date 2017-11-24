@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blake Boswell - No Hassle Python Deploys</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Blake Boswell" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/assets/js/min/particle.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/plotly-basic.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="/assets/js/min/d3.v3.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen|Raleway|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+
+</head>
+
+    
+    <body>
+            
+        <div class="sidebar">
+  <div id="particles"></div>
+    <div class="container">
+        <nav class="sidebar-nav">
+
+            <img class="sidebar-avatar" src="/assets/images/avatar.jpg"/>
+
+            <ul>
+                <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Articles </a></li>
+                <!-- <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Projects </a></li> -->
+                <li><a href="https://blakeboswell.github.iofeed.xml"
+                    style="font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;">
+                    RSS
+                    </a>
+                </li>
+            </ul>
+
+            <div style="text-align: center">
+                <br>
+                <a class="socialicon" href="https://twitter.com/lakebozbay"><i class="fa fa-twitter fa-2x"></i></a>
+                <a class="socialicon" href="https://github.com/blakeboswell"><i class="fa fa-github fa-2x"></i></a>
+                <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell"><i class="fa fa-linkedin fa-2x"></i></a>
+            </div>
+        </nav>
+    </div>
+  </div>
+</div>
+<script>
+particlesJS("particles", {
+    "particles": {
+        "number": {
+        "value": 80,
+        "density": {
+            "enable": true,
+            "value_area": 400
+        }
+        },
+        "color": {
+        "value": "#2AA198"
+        },
+        "shape": {
+        "type": "circle",
+        "stroke": {
+            "width": 0,
+            "color": "#000000"
+        },
+        "polygon": {
+            "nb_sides": 5
+        }
+        },
+        "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+        }
+        },
+        "size": {
+        "value": 10,
+        "random": true,
+        "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+        }
+        },
+        "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+        },
+        "move": {
+        "enable": true,
+        "speed": 0.25,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+        }
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+        "onhover": {
+            "enable": false,
+            "mode": "grab"
+        },
+        "onclick": {
+            "enable": true,
+            "mode": "push"
+        },
+        "resize": true
+        },
+        "modes": {
+        "grab": {
+            "distance": 140,
+            "line_linked": {
+            "opacity": 1
+            }
+        },
+        "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+        },
+        "repulse": {
+            "distance": 200,
+            "duration": 0.4
+        },
+        "push": {
+            "particles_nb": 4
+        },
+        "remove": {
+            "particles_nb": 2
+        }
+        }
+    },
+    "retina_detect": true
+    });
+</script>
+        
+
+        <div class="content container">
+
+            <!-- <section id="wrapper" class=""> -->
+            <article class="post">
+    <div class="post-header" id=header>
+        <h1 class="title">No Hassle Python Deploys</h1>
+        <h2 class="headline">August 30, 2016</h2>
+    </div>
+    <section id="post-body">
+        <h1>Package Management with Conda</h1>
+
+<blockquote>
+<p>Python package management is really tough!
+<footer>
+— <cite><a href="http://www.theinternet.com">The Internet</a></cite>
+</footer></p>
+</blockquote>
+
+<p>I disagree with the Internet.  I have not had that experience. It could be luck, or maybe I only work on easy projects that aren&#39;t extreme enough to cause problems.</p>
+
+<p>Those possibilities aside, I attribute my lack of issues to <a href="https://conda.io/docs/intro.html"><code class="inline-code">conda</code></a> and to adhering to a consistent pattern for creating and managing environments.</p>
+
+<h1>The Pattern</h1>
+
+<p>When starting a new project, create a clean directory with a descriptive but short name:</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a>mkdir <span class="nv">$PROJ_NAME</span>
+<a name="line-2"></a><span class="nb">cd</span> <span class="nv">$PROJ_NAME</span>
+<a name="line-3"></a>touch README.md main.py
+</code></pre></div>
+<p>Create a clean <code class="inline-code">conda</code> environment having the same name as the project&#39;s directory and then activate that environment.</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a><span class="nb">source </span>deactivate <span class="c"># if not in root environment</span>
+<a name="line-2"></a>conda create -n <span class="nv">$PROJ_NAME</span> <span class="nv">python</span><span class="o">=</span>3.5
+<a name="line-3"></a><span class="nb">source </span>activate <span class="nv">$PROJ_NAME</span>
+</code></pre></div>
+<p>Add needed packages to your environment.</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a>conda install numpy, scikit-learn, pandas
+</code></pre></div>
+<p>Export your environment settings regularly.  Export after installs, before every major commit, before every minor commit. Export just because you&#39;re bored, it doesn&#39;t cost anything:</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a>conda env <span class="nb">export</span> &gt; environment.yml
+</code></pre></div>
+<p>Then start developing.  As the need for additional packages arise, <code class="inline-code">conda install</code> and <code class="inline-code">conda env export</code>.  When it&#39;s time to stop developing or to switch to a new project deactivate the environment:</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a><span class="nb">source </span>deactivate
+</code></pre></div>
+<p>If you want to save space, remove the environment you just created:</p>
+<div class="highlight"><pre><code class="bash"><a name="line-1"></a>conda remove -n <span class="nv">$PROJ_NAME</span>
+</code></pre></div>
+<p>The <code class="inline-code">environment.yml</code> is the blueprint to bring your environment back to life whenever you need it.</p>
+
+<h1>The Blueprint</h1>
+
+<p>The key to this pattern is the <strong><code class="inline-code">environment.yml</code></strong> file.  This file should be just as commonplace as <code class="inline-code">README</code> for Python projects.   If you access the same project on a different machine, you can completely recreate your environment with:</p>
+<div class="highlight"><pre><code class="text"><a name="line-1"></a># from the folder containing environment.yml
+<a name="line-2"></a>conda env create
+</code></pre></div>
+<p>But there&#39;s more!  The full Anaconda distribution doesn&#39;t even need to available: all that is needed is <a href="http://conda.pydata.org/miniconda.html">Miniconda</a>.  This approach makes deploying Python projects using containers, VMs, and cloud services easy and consistent.</p>
+
+<h1>Common Issues</h1>
+
+<p><em>The required package is not available in <code class="inline-code">conda</code>.</em></p>
+
+<p>If that&#39;s the case, use <code class="inline-code">pip</code>.  In general, try <code class="inline-code">conda install</code> first. If <code class="inline-code">conda</code> can&#39;t find it, try <code class="inline-code">pip install</code>.  Then export!</p>
+
+<p><em>Environments take up space and I have many projects.</em></p>
+
+<p>No problem! As long as you have the <code class="inline-code">environment.yml</code> associated with an environment, that environment is <strong>completely disposable</strong>.  You can remove and create environments with ease.  I keep on average 5 or 6 environments ready to activate, the rest are all stored as <code class="inline-code">environment.yml</code> files in their respective project directories.</p>
+
+<h1>Going Forward</h1>
+
+<p>The <code class="inline-code">conda</code> commands I mention above comprise 95% of my calls to <code class="inline-code">conda</code>.  Check out the <a href="http://conda.pydata.org/docs/using/envs.html">Managing Environment</a> site for more commands and features.</p>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+
+    <a href="https://twitter.com/lakebozbay">
+        <img class="avatar" src="/assets/images/avatar.jpg">
+        <div>
+            <span class="dark">Blake Boswell</span>
+            <span>Data Scientist | Developer</span>
+        </div>
+    </a>
+
+    <div style="float: right;">
+        <a class="socialicon" href="https://twitter.com/lakebozbay">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://github.com/blakeboswell">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </div>
+
+</footer>
+
+<!-- Disqus comments -->
+
+
+
+
+
+
+            <!-- </section> -->
+
+            <script src="/assets/js/main.js"></script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                TeX: { equationNumbers: { autoNumber: "AMS" } },
+                styles: {".MathJax": { color: "#666" } }
+                });
+            </script>
+
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-76539402-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+        </div>
+
+    </body>
+
+</html>
+
+
+

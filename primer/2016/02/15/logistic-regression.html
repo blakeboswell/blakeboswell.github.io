@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Blake Boswell - Logistic Regression Machine Learning Review</title>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="alternate" type="application/rss+xml" title="Blake Boswell" href="/rss.xml">
+  <link rel="stylesheet" href="/assets/css/highlight.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="/assets/js/min/particle.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/assets/js/min/plotly-basic.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="/assets/js/min/d3.v3.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen|Raleway|Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+
+</head>
+
+    
+    <body>
+            
+        <div class="sidebar">
+  <div id="particles"></div>
+    <div class="container">
+        <nav class="sidebar-nav">
+
+            <img class="sidebar-avatar" src="/assets/images/avatar.jpg"/>
+
+            <ul>
+                <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Articles </a></li>
+                <!-- <li><a href="https://blakeboswell.github.io/about/"> About </a></li>
+                <li><a href="https://blakeboswell.github.io"> Projects </a></li> -->
+                <li><a href="https://blakeboswell.github.iofeed.xml"
+                    style="font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;">
+                    RSS
+                    </a>
+                </li>
+            </ul>
+
+            <div style="text-align: center">
+                <br>
+                <a class="socialicon" href="https://twitter.com/lakebozbay"><i class="fa fa-twitter fa-2x"></i></a>
+                <a class="socialicon" href="https://github.com/blakeboswell"><i class="fa fa-github fa-2x"></i></a>
+                <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell"><i class="fa fa-linkedin fa-2x"></i></a>
+            </div>
+        </nav>
+    </div>
+  </div>
+</div>
+<script>
+particlesJS("particles", {
+    "particles": {
+        "number": {
+        "value": 80,
+        "density": {
+            "enable": true,
+            "value_area": 400
+        }
+        },
+        "color": {
+        "value": "#2AA198"
+        },
+        "shape": {
+        "type": "circle",
+        "stroke": {
+            "width": 0,
+            "color": "#000000"
+        },
+        "polygon": {
+            "nb_sides": 5
+        }
+        },
+        "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.1,
+            "sync": false
+        }
+        },
+        "size": {
+        "value": 10,
+        "random": true,
+        "anim": {
+            "enable": false,
+            "speed": 40,
+            "size_min": 0.1,
+            "sync": false
+        }
+        },
+        "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+        },
+        "move": {
+        "enable": true,
+        "speed": 0.25,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+        }
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+        "onhover": {
+            "enable": false,
+            "mode": "grab"
+        },
+        "onclick": {
+            "enable": true,
+            "mode": "push"
+        },
+        "resize": true
+        },
+        "modes": {
+        "grab": {
+            "distance": 140,
+            "line_linked": {
+            "opacity": 1
+            }
+        },
+        "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+        },
+        "repulse": {
+            "distance": 200,
+            "duration": 0.4
+        },
+        "push": {
+            "particles_nb": 4
+        },
+        "remove": {
+            "particles_nb": 2
+        }
+        }
+    },
+    "retina_detect": true
+    });
+</script>
+        
+
+        <div class="content container">
+
+            <!-- <section id="wrapper" class=""> -->
+            <article class="post">
+    <div class="post-header" id=header>
+        <h1 class="title">Logistic Regression Machine Learning Review</h1>
+        <h2 class="headline">February 15, 2016</h2>
+    </div>
+    <section id="post-body">
+        <p>Here I reproduce the logistic regression material covered in <a href="https://www.coursera.org/learn/machine-learning/home/welcome">Andrew Ng&#39;s Machine learning course</a> on Coursera.  Logistic regression is a canonical approach and I hope to gain familiarity with the ML flavor notation by deriving its form.</p>
+
+<p>The programming example is implemented in the <code class="inline-code">R</code> programming language and the scripts can be found <a href="https://github.com/blakeboswell/101-logistic-regression">here</a>.</p>
+
+<h1>Introduction</h1>
+
+<p>Generalized linear models (GLMs) are a class of statistical models for estimating <em>conditional</em> densities of the form \( p(y\,|\,x) \) by relating the response \(y\) to a linear combination of the features \(x\).  GLMs are popular because they provide a general framework for estimating a wide range of response types. Understanding GLMs allows for the estimation of continuous variables, binary, ordinal and multinomial variables, rates and proportions, and counts through the same framework.</p>
+
+<p>This article provides a quick introduction to GLMs and outlines the approach for constructing three hypotheses for supervised learning based on GLMs:</p>
+
+<ul>
+<li><a href="#linear">Linear regression</a> - continuous Normally distributed response</li>
+<li><a href="#logistic">Logistic regression</a> - binary Bernoulli distributed response</li>
+<li><a href="#softmax">Softmax regression</a> - nominal Multinomial distributed response</li>
+</ul>
+
+<h1>Components</h1>
+
+<p>There are three components to any GLM:</p>
+
+<ul>
+<li><p><strong>Random Component</strong>:
+specifies that the conditional expectation \(y\,|\,x\) follows some exponential family distribution with parameter \( \eta \).</p></li>
+<li><p><strong>Systematic Component</strong>:
+a linear function of the features (sometimes referred to as the linear predictor)</p></li>
+</ul>
+
+<p>\begin{equation*}
+\eta = \theta_0 + \theta_1x_1 + \theta_2x_2 + \cdots + \theta_kx_k = \theta^Tx
+\end{equation*}</p>
+
+<ul>
+<li><strong>Link Function</strong>:
+a smooth and invertible function \( g(·) \), which transforms the expectation of the response variable, \( \mu = \text{E}(y\,|\,x) \), to the systematic component</li>
+</ul>
+
+<p>\begin{equation*}
+g(\mu) = \eta
+\end{equation*}</p>
+
+<p>It is important to note the systematic component, \(\lambda \), only needs to be linear in terms of the <em>parameters</em>.  In fact, it is often the case that \(\lambda \) includes transformations of \(x\) that produce a non-linear relationship between \(x\) and \(y\).  This characteristic of GLMs provides flexibility for estimating a wide range of response types.</p>
+
+<h1>The Exponential Family</h1>
+
+<p>The Exponential family is a broad class of probability distributions that includes many basic distributions such as Normal, Exponential, Bernoulli and Multinomial. A common characteristic of distributions in the Exponential family is that they can be represented in terms of log-linear functions of <em>sufficient statistics</em>.</p>
+
+<p>A class of distributions is in the exponential family if it can be expressed in the form
+\begin{equation}
+p(y\,|\,\eta) = b(y)\exp{\big(\eta^TT(y) - a(\eta)\big)}
+\end{equation}
+The different parts of Eq(1) are:</p>
+
+<ul>
+<li>The natural parameter, \(\eta \)</li>
+<li>The sufficient statistic, \( T(y) \), which is <em>sufficient</em> because the likelihood for \(\eta \) only depends on \( y \) through \(T(y) \)</li>
+<li>The underlying measure, \( b(y) \), e.g. Lebesque measure or counting measure</li>
+<li>The log normalizer, \(a(\eta) \), which ensures that the density integrates over \( y \) to 1</li>
+</ul>
+
+<p>A fixed choice of \( T, a \), and \( b \) defines a family of distributions that is parameterized by \( \eta \).  Varying \( \eta \) results in different distributions within this family.</p>
+
+<h1>Constructing Learning Hypotheses</h1>
+
+<p>Consider a classification or regression problem where we would like to predict the value of some random variable \( y \) as a function of \( x \). To derive a GLM for this problem, we will make the following three assumptions about the conditional distribution of \( y \) given \( x \) and about our model:</p>
+
+<ol>
+<li>\(y\,|\,x \); \(\theta ∼ \text{ExponentialFamily}(\eta) \) i.e. given \( x \) and \(\theta\), the distribution of \(y\) follows some exponential family distribution, with parameter \(\eta\).</li>
+<li>Given \(x\), our goal is to predict the expected value of \(T(y)\) given \(x\). In most of our examples, we will have \(T(y) = y\), so this means we would like the prediction \(h(x)\) output by our learned hypothesis \(h\) to satisfy \(h(x) = \text{E}[y\,|\,x]\).</li>
+<li>The natural parameter \(\eta\) and the inputs \(x\) are related linearly: \(\eta = \theta^Tx \).</li>
+</ol>
+
+<p>We will refer to the these assumptions as the <strong>LH assumptions</strong>.</p>
+
+<h1>Binary Classification</h1>
+
+<p>In binary classification the objective is to classify a set of objects into two groups based on the features of the objects.</p>
+
+<p>Logistic regression is a generalized linear model (GLM) that estimates the <em>probability</em> of a binary response, \(y\), based on features \(x\).</p>
+
+<p>For use in binary classification, an object is assigned to a group based on the probability predicted by logistic regression given its features.</p>
+
+<h1>Hypothesis &amp; The Logistic Function</h1>
+
+<p>When the response variable is binary, logistic regression assumes that the expectation \(y\,|\,x; \theta\ \) is distributed according to the Bernoulli family of distributions with some parameter, \(\phi\). To verify the Bernoulli family satisties the first LH assumption, we express the Bernoulli probability density function, \(p(y; \phi) \), in the form shown in Eq(1):
+\begin{align*}
+p(y; \phi) &amp;= \phi^y(1-\phi)^{1-y} \\
+&amp;= \exp(y\ln{\phi} + (1-y)\ln{(1 - \phi)}) \\
+&amp;=\exp{ \Big(\Big(\ln{\Big(\frac{\phi}{1 - \phi}\Big)}\Big)y + \ln{(1-\phi)} \Big) }
+\end{align*}</p>
+
+<p>Thus, we can see that a Bernoulli distribution can be expressed as an Exponential family in the form of Eq(1) with:</p>
+
+<p>\begin{align}
+T(y)&amp;= y \\
+b(y) &amp;= 1 \\
+a(\eta) &amp;= \ln{(1 + \exp{\eta})} \\
+\eta &amp;= \ln{\Big(\frac{\phi}{1 - \phi}\Big)}
+\end{align}</p>
+
+<p>From LH assumption 2, Eq(8) and Eq(11) it follows that the logistic regression hypothesis can be expressed as follows:
+\begin{equation}
+h_{\theta}(x) = \text{E}[y\,|\,x; \theta] = \phi = (1 + \exp{(-\eta)})^{-1}
+\end{equation}</p>
+
+<p>Incorporating the third LH assumption we have the final form of the logistic regression hypothesis:</p>
+
+<p>\begin{equation}
+h_{\theta}(x) = \big(1 + \exp\big(-\theta^T x\big)\big)^{-1}
+\end{equation}</p>
+
+<p>The derivation of the hypothesis representation for Logistic Regression is covered in the <a href="http://gootle.com">GLM</a> article, and the result is Eq(1) below:</p>
+
+<p>\begin{equation}
+h_{\theta}(x) = \big(1 + \exp\big(-\theta^T x\big)\big)^{-1}
+\end{equation}</p>
+
+<p>The right-hand side of Eq(1) is the <strong>Logistic Function</strong>. Expressed more generally as \( g(z) = (1 + \exp(-z))^{-1} \), the logistic function maps all \( z \) in \( \mathbb{R} \) to \( (0,1) \) making it consistent with representing probability.</p>
+
+<p>For logistic regression, the classification boundary is a horizontal line in terms of \( g(z) \).  A popular choice for \( g(z) \) is 50%.  The below plot shows a decision boundary at \( g(z) = 0.5 \) which also corresponds to a decision boundary that is a vertical line at \( z = 0 \).</p>
+
+<div id="logDiv"></div>
+
+<script>
+  var trace1 = {
+    x: [-5,-4.9,-4.8,-4.7,-4.6,-4.5,-4.4,-4.3,-4.2,-4.1,-4,-3.9,-3.8,-3.7,-3.6,-3.5,-3.4,-3.3,-3.2,-3.1,-3,-2.9,-2.8,-2.7,-2.6,-2.5,-2.4,-2.3,-2.2,-2.1,-2,-1.9,-1.8,-1.7,-1.6,-1.5,-1.4,-1.3,-1.2,-1.1,-1,-0.9,-0.8,-0.7,-0.6,-0.5,-0.4,-0.3,-0.2,-0.1,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9,5],
+    y: [0.0067,0.0074,0.0082,0.009,0.01,0.011,0.0121,0.0134,0.0148,0.0163,0.018,0.0198,0.0219,0.0241,0.0266,0.0293,0.0323,0.0356,0.0392,0.0431,0.0474,0.0522,0.0573,0.063,0.0691,0.0759,0.0832,0.0911,0.0998,0.1091,0.1192,0.1301,0.1419,0.1545,0.168,0.1824,0.1978,0.2142,0.2315,0.2497,0.2689,0.2891,0.31,0.3318,0.3543,0.3775,0.4013,0.4256,0.4502,0.475,0.5,0.525,0.5498,0.5744,0.5987,0.6225,0.6457,0.6682,0.69,0.7109,0.7311,0.7503,0.7685,0.7858,0.8022,0.8176,0.832,0.8455,0.8581,0.8699,0.8808,0.8909,0.9002,0.9089,0.9168,0.9241,0.9309,0.937,0.9427,0.9478,0.9526,0.9569,0.9608,0.9644,0.9677,0.9707,0.9734,0.9759,0.9781,0.9802,0.982,0.9837,0.9852,0.9866,0.9879,0.989,0.99,0.991,0.9918,0.9926,0.9933],
+    type: 'scatter'
+  };
+
+  var layout = {
+    title: 'Logistic Function g(z) = 1 / (1 + exp(-z))',
+    xaxis: {
+      title: 'z'
+    },
+    yaxis: {
+      title: 'g(z)'
+    },
+    shapes: [
+      {
+        type: 'rect',
+        x0: -5,
+        y0: 0.5,
+        x1: 0,
+        y1: 0,
+        line: {
+          color: 'rgba(128, 128, 128, 1)',
+          width: 0
+        },
+        fillcolor: 'rgba(128, 128, 128, 0.2)'
+      },
+      {
+        type: 'rect',
+        x0: 0,
+        y0: 0.5,
+        x1: 5,
+        y1: 1,
+        line: {
+          color: 'rgba(128, 128, 128, 1)',
+          width: 0
+        },
+        fillcolor: 'rgba(128, 128, 128, 0.2)'
+      }
+    ]
+  };
+
+  var data2 = [trace1];
+  Plotly.newPlot('logDiv', data2, layout);
+
+</script>
+
+<p>The logistic function implemented in <code class="inline-code">R</code>:</p>
+<div class="highlight"><pre><code class="r"><a name="line-1"></a><span class="c1">## logistic function</span>
+<a name="line-2"></a>g <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>z<span class="p">)</span> <span class="m">1</span> <span class="o">/</span> <span class="p">(</span><span class="m">1</span> <span class="o">+</span> <span class="kp">exp</span><span class="p">(</span><span class="o">-</span>z<span class="p">))</span>
+</code></pre></div>
+<h1>Learning Algorithm</h1>
+
+<p>To fit the parameter, \( \theta \), we can apply probabilistic assumptions to our hypothesis and employ Maximum Likelihood Estimation (MLE).  If we assume the following equalities:</p>
+
+<p>\begin{align}
+\text{P}(y=1 \,|\, x; \theta) &amp;= h_{\theta}(x) \\
+\text{P}(y=0 \,|\, x; \theta) &amp;= 1 - h_{\theta}(x)
+\end{align}</p>
+
+<p>which can be expressed as:</p>
+
+<p>\begin{equation*}
+\text{P}(y\,|\,x; \theta) = h_{\theta}(x)^y(1 - h_{\theta}(x)^{1-y}
+\end{equation*}</p>
+
+<p>Additionally, assuming that the \(m \) training samples are generated independently, we can express the likelihood of \(\theta\) to be:</p>
+
+<p>\begin{align*}
+\text{L}(\theta) &amp;= \prod_{i}^{m} \text{P}(y^i\,|\,x^i; \theta) \\
+&amp;= \prod_{i = 1}^{m} h_{\theta}(x^i)^{y^i}(1 - h_{\theta}(x^i)^{1-y^i}
+\end{align*}</p>
+
+<p>and the log likelihood as:
+\begin{align*}
+l(\theta) &amp;= \ln{\text{L}(\theta)} \\
+&amp;= \sum_{i = 1}^{m} y^{i}\ln{h_{\theta}(x^i)} + (1 - y^i)\ln{(1 - h_{\theta}(x^i))}
+\end{align*}</p>
+
+<p>Therefore, we can express the Learning algorithm, which we will seek to minimize, in terms of \(l(\theta)\):
+\begin{equation}
+J(\theta) = -\sum_{i = 1}^{m} y^{i}\ln{h_{\theta}(x^i)} + (1 - y^i)\ln{(1 - h_{\theta}(x^i))}
+\end{equation}</p>
+
+<h2>Minimizing the Learning Algorithm</h2>
+
+<p>There is no analytical way to minimize \(J(\theta)\). However, we can find the partial derivative with respect to \(\theta_j \) and proceed with gradient descent. Considering one training sample, \((x, y)\), and noting that \( h_{\theta}{x}\) is the logistic function \(g(z)\) such that, \( g&#39;(z) = g(z)(1 - g(z)) \), we have:</p>
+
+<p>\begin{align}
+\frac{\partial}{\partial\theta_j}J(\theta) &amp;= -\Big(yg(\theta^Tx)^{-1} - (1-y)(1-g(\theta^Tx))^{-1}\Big)\frac{\partial}{\partial\theta_j}g(\theta^Tx) \\
+&amp;= -\Big(yg(\theta^Tx)^{-1}-(1-y)(1-g(\theta^Tx))^{-1}\Big)g(\theta^Tx)(1 - g(\theta^Tx))\frac{\partial}{\partial\theta_j}\theta^Tx \\
+&amp;= -\big(y(1-g(\theta^Tx)) - (1-y)g(\theta^Tx)\big)x_j \\
+&amp;= -\big(y - g(\theta^Tx)\big)x_j
+\end{align}</p>
+
+<p>Hence, we have the following update rule for gradient descent:
+\begin{equation}
+\theta_j := \theta_j - \alpha(h_{\theta}(x^i) - y^i)x_j^i
+\end{equation}</p>
+
+<h2>Minimizing \(J(\theta)\) via Gradient Descent in R</h2>
+
+<p>The first step will be to define a vectorized function for the MLE gradient defined in Eq(13).</p>
+<div class="highlight"><pre><code class="r"><a name="line-1"></a><span class="c1">## vectorized logistic gradient function</span>
+<a name="line-2"></a>logistic.gradient <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">,</span> theta<span class="p">){</span>
+<a name="line-3"></a>  <span class="kp">t</span><span class="p">(</span>x<span class="p">)</span> <span class="o">%*%</span> <span class="p">(</span><span class="m">1</span> <span class="o">/</span> <span class="p">(</span><span class="m">1</span> <span class="o">+</span> <span class="kp">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span>x <span class="o">%*%</span> theta<span class="p">)))</span> <span class="o">-</span> y<span class="p">)</span>
+<a name="line-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>Next, we define an <code class="inline-code">R</code> closure that will contain the gradient descent routine and take the gradient function as an input.  Ideally, this will allow use of the same closure for different gradient functions and for one instance of the clousure to be applied to multiple feature class pairs.</p>
+<div class="highlight"><pre><code class="r"><a name="line-1"></a><span class="c1">## gradient descent closure</span>
+<a name="line-2"></a>gradient.descent <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>gradient<span class="p">){</span>
+<a name="line-3"></a>
+<a name="line-4"></a>  grad <span class="o">&lt;-</span> gradient
+<a name="line-5"></a>
+<a name="line-6"></a>  fit <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">,</span> y<span class="p">,</span> theta <span class="o">=</span> <span class="kc">NULL</span><span class="p">,</span> maxiter <span class="o">=</span> <span class="m">10000</span><span class="p">,</span> alpha <span class="o">=</span> <span class="m">0.05</span><span class="p">,</span> tol <span class="o">=</span> <span class="m">.00001</span><span class="p">){</span>
+<a name="line-7"></a>    x <span class="o">&lt;-</span> <span class="kp">as.matrix</span><span class="p">(</span>x<span class="p">)</span>
+<a name="line-8"></a>    y <span class="o">&lt;-</span> <span class="kp">as.matrix</span><span class="p">(</span>y<span class="p">)</span>
+<a name="line-9"></a>    m <span class="o">&lt;-</span> <span class="kp">ncol</span><span class="p">(</span>x<span class="p">)</span>
+<a name="line-10"></a>
+<a name="line-11"></a>    <span class="kr">if</span><span class="p">(</span><span class="kp">is.null</span><span class="p">(</span>theta<span class="p">))</span> theta <span class="o">&lt;-</span> <span class="kt">matrix</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> nrow <span class="o">=</span> m<span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+<a name="line-12"></a>
+<a name="line-13"></a>    <span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span>maxiter<span class="p">){</span>
+<a name="line-14"></a>      theta.tmp <span class="o">&lt;-</span> theta
+<a name="line-15"></a>      theta <span class="o">&lt;-</span> theta.tmp <span class="o">-</span> alpha <span class="o">*</span> grad<span class="p">(</span>x<span class="p">,</span> y<span class="p">,</span> theta.tmp<span class="p">)</span>
+<a name="line-16"></a>    <span class="p">}</span>
+<a name="line-17"></a>
+<a name="line-18"></a>    <span class="kr">return</span><span class="p">(</span>
+<a name="line-19"></a>      <span class="kt">list</span><span class="p">(</span>theta <span class="o">=</span> theta<span class="p">)</span>
+<a name="line-20"></a>    <span class="p">)</span>
+<a name="line-21"></a>  <span class="p">}</span>
+<a name="line-22"></a>
+<a name="line-23"></a>  <span class="kr">return</span><span class="p">(</span>fit<span class="p">)</span>
+<a name="line-24"></a><span class="p">}</span>
+<a name="line-25"></a>
+<a name="line-26"></a><span class="c1">## initialize a gradient descent closure with the logistic gradient</span>
+<a name="line-27"></a>mdl <span class="o">&lt;-</span> gradient.descent<span class="p">(</span>logistic.gradient<span class="p">)</span>
+</code></pre></div>
+<h2>Example Implementation</h2>
+
+<p>To test our implementation we can use the <em>Iris</em> data set. To simplify to a binary classification problem we will create a new variable, <code class="inline-code">Setosa</code>, which will be 1 if the observation is of species Setosa and 0 if it is not. We will predict based on only two features, <code class="inline-code">Sepal.Length</code> and <code class="inline-code">Sepal.Width</code> and add an Intercept feature.</p>
+<div class="highlight"><pre><code class="r"><a name="line-1"></a><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+<a name="line-2"></a>
+<a name="line-3"></a><span class="c1">## select appropriate columns for x and y</span>
+<a name="line-4"></a>x <span class="o">&lt;-</span> iris <span class="o">%&gt;%</span> mutate<span class="p">(</span>Intercept <span class="o">=</span> <span class="m">1</span><span class="p">)</span> <span class="o">%&gt;%</span>
+<a name="line-5"></a>  select<span class="p">(</span>Intercept<span class="p">,</span> Sepal.Length<span class="p">,</span> Sepal.Width<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.matrix</span>
+<a name="line-6"></a>y <span class="o">&lt;-</span> iris <span class="o">%&gt;%</span> mutate<span class="p">(</span>Setosa <span class="o">=</span> <span class="kp">as.integer</span><span class="p">(</span>Species <span class="o">==</span> <span class="s">&#39;setosa&#39;</span><span class="p">))</span> <span class="o">%&gt;%</span>
+<a name="line-7"></a>  select<span class="p">(</span>Setosa<span class="p">)</span> <span class="o">%&gt;%</span> <span class="kp">as.matrix</span>
+</code></pre></div>
+<p>Next we will run the gradient descent closure, <code class="inline-code">mdl</code>, we defined earlier to find the best fit theta, <code class="inline-code">theta_star</code>.  Then we can plug <code class="inline-code">theta_star</code> back into the logistic function to produce a probability that an observation is of species Setosa.  To classify, we will label observations having greater than or equal to 50% probability as having species Setosa.</p>
+<div class="highlight"><pre><code class="r"><a name="line-1"></a><span class="c1">## fit theta to the training set</span>
+<a name="line-2"></a>theta_star <span class="o">&lt;-</span> mdl<span class="p">(</span>x<span class="p">,</span> y<span class="p">)</span><span class="o">$</span>theta
+<a name="line-3"></a>
+<a name="line-4"></a><span class="c1">## generate predictions on test set using best fit theta</span>
+<a name="line-5"></a>py <span class="o">&lt;-</span> g<span class="p">(</span>x <span class="o">%*%</span> theta_star<span class="p">)</span>
+<a name="line-6"></a>
+<a name="line-7"></a><span class="c1">## apply decision rule to assign to 0,1 label</span>
+<a name="line-8"></a>yhat <span class="o">&lt;-</span> <span class="kp">ifelse</span><span class="p">(</span>py <span class="o">&lt;</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+</code></pre></div>
+<p>The last thing to do is to check the accuracy of the predictions.</p>
+<div class="highlight"><pre><code class="r"><a name="line-1"></a><span class="c1">## test the predictions</span>
+<a name="line-2"></a><span class="kp">sum</span><span class="p">(</span>yhat <span class="o">==</span> y<span class="p">)</span> <span class="o">/</span> <span class="kp">length</span><span class="p">(</span>y<span class="p">)</span>
+</code></pre></div>
+<p>In this instance we find that the predictions are 100% accurate. This is due to the high separability of the Iris species based on sepal dimensions.</p>
+
+<h2>Decision Boundary</h2>
+
+<p>Continuing with the above example, we will examine the decision boundary for the species Setosa based on sepal dimensions.  The best fit values for theta, \(\theta^{*} \), determined by the gradient descent method are as follows:</p>
+
+<table><thead>
+<tr>
+<th>Intercept</th>
+<th>Sepal Length</th>
+<th>Sepal Width</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>45.85848</td>
+<td>-19.48671</td>
+<td>18.89480</td>
+</tr>
+</tbody></table>
+
+<p>We can visualize the linear decision boundary created by logistic regression by plotting \( g(z) \) where \( z = \theta^{*T}x \):</p>
+
+<div id = "boundaryDiv1"></div>
+
+<script>
+
+  var boundary_gz_0 = [0,0,0,0,0,0,0,0.0137,0,0.0115,0,0,0,0,0.0002,0,0.0014,0,0,0,0.0002,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0638,0.0011,0,0,0.0014,0,0,0,0,0.0003,0,0.0002,0,0,0.0019,0,0,0,0,0,0,0,0.084,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ;
+  var boundary_z_0 = [-30.0851,-18.3931,-30.026,-17.8604,-27.8997,-12.3103,-14.555,-4.2789,-27.9589,-4.4565,-13.7855,-12.4287,-29.4932,-18.2155,-8.4722,-26.1286,-6.5827,-16.1485,-33.3906,-16.0301,-8.6498,-20.105,-29.6708,-20.105,-24.0616,-26.0694,-33.7457,-28.0181,-16.2669,-16.0893,-15.9709,-15.9709,-16.1485,-20.0458,-2.6854,-6.8195,-26.1286,-33.4498,-6.5827,-14.0814,-12.192,-16.3261,-18.038,-8.117,-12.2511,-8.5314,-10.4209,-20.1642,-6.2868,-12.3103,-14.555,-16.1485,-35.8128,-22.1129,-24.1207,-45.5561,-2.3894,-41.5996,-37.4655,-26.4246,-20.3418,-27.8405,-29.9668,-17.9788,-14.259,-18.3931,-24.1207,-32.389,-55.0627,-29.4932,-28.1365,-10.3617,-51.2838,-25.8918,-22.3497,-33.9825,-22.0537,-16.3261,-25.951,-37.7614,-45.4377,-36.2863,-25.951,-24.0024,-23.884,-47.5048,-12.6655,-20.2826,-14.3774,-30.026,-26.1286,-30.026,-16.1485,-26.1878,-22.3497,-28.0181,-29.6708,-24.1207,-10.7168,-12.4287];
+
+  var boundary_gz_1 = [1,0.9991,1,1,1,1,1,1,1,0.9999,1,1,0.9999,1,0.9998,1,1,1,0.9986,1,0.9924,1,1,0.9999,1,0.994,1,1,0.9998,1,1,0.9924,1,1,0.9999,0.9999,0.9919,1,1,1,1,0.8357,1,1,1,0.9999,1,1,1,1] ;
+  var boundary_z_1 = [12.608,7.058,14.7343,14.7935,16.4462,14.32,20.4619,12.6672,14.9119,8.9475,10.541,16.5646,9.0067,18.75,8.4147,17.9213,14.32,12.608,6.5845,18.2765,4.8726,16.387,24.2409,8.8291,16.5646,5.1093,12.6672,10.6594,8.7699,14.7343,10.8961,4.8726,21.9963,18.0397,8.9475,8.8883,4.8134,18.3949,16.8013,10.7186,14.5567,1.6263,20.5803,14.5567,18.2765,9.0067,18.2765,16.683,12.4897,10.7778];
+
+  var trace1 = {
+    x: boundary_z_1,
+    y: boundary_gz_1,
+    type: 'scatter',
+    mode: 'markers',
+    name: 'Setosa'
+  };
+
+  var trace2 = {
+    x: boundary_z_0,
+    y: boundary_gz_0,
+    type: 'scatter',
+    mode: 'markers',
+    name: 'Other'
+  };
+
+  var boundary = {
+    x: [-55, 25.5],
+    y: [0.5, 0.5],
+    type: 'scatter',
+    mode: 'lines',
+    name: 'Boundary',
+    line: {
+      dash: 'dot',
+      color: 'rgb(0, 0, 0)',
+      width: 3
+    }
+  };
+
+  var layout = {
+    title: 'Classification Boundary in Logistic Space',
+    xaxis: {
+      title: 'z'
+    },
+    yaxis: {
+      title: 'g(z)'
+    }
+  };
+
+  var data3 = [trace1, trace2, boundary];
+  Plotly.newPlot('boundaryDiv1', data3, layout);
+
+</script>
+
+<p>We can also characterize the boundary in feature space.  To do this we rely on the fact that when \( g(z) \geq 0.5 \) we have \( z \geq 0 \).  Therefore, the decision boundary is where \(\theta^Tx \geq 0 \).  We can rearrange this equality to find the slope and intercept of the boundary as follows:</p>
+
+<p>\begin{align*}
+\theta_0 + \theta_1x_1 + \theta_2x_2 &amp;\geq 0 \\
+\frac{-\theta_0}{\theta_2} + \frac{-\theta_1}{\theta_2}x_1 &amp;\geq x_2
+\end{align*}</p>
+
+<p>Continuing our earlier example, we can calculate the slope and intercept of the feature space boundary in <code class="inline-code">R</code> as follows:</p>
+<div class="highlight"><pre><code class="r"><a name="line-1"></a><span class="c1">## calculate linear coefficients</span>
+<a name="line-2"></a>slope <span class="o">&lt;-</span> <span class="o">-</span>theta_star<span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="o">/</span> theta_star<span class="p">[</span><span class="m">3</span><span class="p">]</span>
+<a name="line-3"></a>intercept <span class="o">&lt;-</span> <span class="o">-</span>theta_star<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">/</span> theta_star<span class="p">[</span><span class="m">3</span><span class="p">]</span>
+</code></pre></div>
+<div id="boundaryDiv2"></div>
+
+<script>
+
+  var setosa_length = [5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5];
+  var setosa_width = [3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3];
+  var not_setosa_length = [7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9];
+  var not_setosa_width = [3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3];
+  var setosa = {
+    x: setosa_length,
+    y: setosa_width,
+    type: 'scatter',
+    mode: 'markers',
+    name: 'Setosa'
+  };
+  var not_setosa = {
+    x: not_setosa_length,
+    y: not_setosa_width,
+    type: 'scatter',
+    mode: 'markers',
+    name: 'Other'
+  };
+  var boundary = {
+    x: [4.3, 6.717],
+    y: [2.0, 4.5],
+    type: 'scatter',
+    mode: 'lines',
+    name: 'Boundary',
+    line: {
+      dash: 'dot',
+      color: 'rgb(0, 0, 0)',
+      width: 3
+    }
+  };
+
+  var layout = {
+    title: 'Classification Boundary in Feature Space',
+    xaxis: {
+      title: 'Sepal Length'
+    },
+    yaxis: {
+      title: 'Sepal Width'
+    }
+  };
+
+  var data3 = [setosa, not_setosa, boundary];
+  Plotly.newPlot('boundaryDiv2', data3, layout);
+
+</script>
+
+<p>In this example the decision boundary is linear in both logistic space and feature space.  When using logistic regression, it is always the case that the decision boundary will be linear in logistic space - this is why logistic regression is often referred to as a <strong>linear classifier</strong>.  However, we can create non-linear decision boundaries in feature space by including quadratic and interaction terms for \(x \) in \( \theta^Tx\).  Note that by doing so, we do not violate the third condition of GLMs because \( \theta^Tx \) is still linear in terms of \(\theta\).</p>
+
+<hr>
+
+    </section>
+</article>
+<footer id="post-meta" class="clearfix">
+
+    <a href="https://twitter.com/lakebozbay">
+        <img class="avatar" src="/assets/images/avatar.jpg">
+        <div>
+            <span class="dark">Blake Boswell</span>
+            <span>Data Scientist | Developer</span>
+        </div>
+    </a>
+
+    <div style="float: right;">
+        <a class="socialicon" href="https://twitter.com/lakebozbay">
+            <i class="fa fa-twitter fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://www.linkedin.com/in/blakeboswell">
+            <i class="fa fa-linkedin fa-2x"></i>
+        </a>
+        <a class="socialicon" href="https://github.com/blakeboswell">
+            <i class="fa fa-github fa-2x"></i>
+        </a>
+    </div>
+
+</footer>
+
+<!-- Disqus comments -->
+
+
+
+
+
+
+            <!-- </section> -->
+
+            <script src="/assets/js/main.js"></script>
+
+            <script type="text/x-mathjax-config">
+                MathJax.Hub.Config({
+                TeX: { equationNumbers: { autoNumber: "AMS" } },
+                styles: {".MathJax": { color: "#666" } }
+                });
+            </script>
+
+            <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-76539402-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+
+        </div>
+
+    </body>
+
+</html>
+
+
+
