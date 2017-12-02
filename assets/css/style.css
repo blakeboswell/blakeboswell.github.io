@@ -113,12 +113,12 @@ article
     color: #5badf0;
 }
 
-.banner .socialicon {
+/* .banner .socialicon {
     color: #5badf0;
 }
 .banner .socialicon:hover {
     color: #FFF;
-}
+} */
 
 footer .socialicon {
     color: #666;
@@ -166,7 +166,7 @@ nav.main-nav a.cta {
 /* Banner (particles) */
 /* ------------------------------------ */
 
-.banner {
+/* .banner {
     display: table;
     position: relative;
     width: 100%;
@@ -176,15 +176,15 @@ nav.main-nav a.cta {
     background: -moz-radial-gradient(circle, #2081C3, #235789);
     background: -ms-radial-gradient(circle, #2081C3, #235789);
     color: #FFF;
-}
+} */
 
-/* .sidebar .particles {
+/* .banner .particles {
     position: absolute;
     width: 100%;
     height: 100%;
 } */
 
-.banner .vert-text {
+/* .banner .vert-text {
     display: table-cell;
     position: relative;
     vertical-align: middle;
@@ -203,7 +203,7 @@ nav.main-nav a.cta {
 .banner h2 {
     font:1.25rem 'Raleway', sans-serif;
     color: #FFF;
-}
+} */
 
 
 
@@ -680,12 +680,12 @@ line {
 .sidebar #particles {
     position: absolute;
     width: 100%;
+    margin: auto;
     height: 100%;
     top: 0;
     left: 0;
     z-index: -1;
 }
-
 
 @media (min-width: 48em) {
     .sidebar {
